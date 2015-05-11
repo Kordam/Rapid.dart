@@ -1,8 +1,11 @@
 # Rapid.dart
 
 ## Introduction
-Polygon interference detection library
+A rigid body simulator using polygon interference detection library
 Current stable release is **v0.1-dev**
+
+Special thanks to Stefan Gottschalk for his thesis on Collison Queries
+
 
 ## Features
  - KdTree for spacial subdivision

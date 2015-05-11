@@ -1,9 +1,10 @@
-// A library inspired from the RAPID library (http://gamma.cs.unc.edu/OBB/)
-// Designed to process efficient polygon interference detection within a sandbox world
+// The rapid.dart library is designed to process efficient
+// rigid body simulation with polygon interference detection
+//
+// Techniques are inspired by the RAPID library (http://gamma.cs.unc.edu/OBB/)
 //
 // This library contains an adaptation of a spacial subdivision class ([KdTree]),
 // ...
-//
 // The interface for collision query is [World].
 
 library rapid;
