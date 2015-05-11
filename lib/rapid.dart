@@ -1,5 +1,5 @@
 // A library inspired from the RAPID library (http://gamma.cs.unc.edu/OBB/)
-// Designed to process efficient polygon interference detection
+// Designed to process efficient polygon interference detection within a sandbox world
 //
 // This library contains an adaptation of a spacial subdivision class ([KdTree]),
 // ...
@@ -10,7 +10,11 @@ library rapid;
 
 import 'dart:math';
 import 'dart:typed_data';
+import 'dart:async';
 
 import 'package:vector_math/vector_math.dart';
 
 part 'src/kd_tree.dart';
+part 'src/collider.dart';
+part 'src/collision.dart';
+part 'src/world.dart';
