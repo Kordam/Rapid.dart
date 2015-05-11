@@ -1,7 +1,7 @@
 # Rapid.dart
 
 ## Introduction
-A rigid body simulator using polygon interference detection library
+A rigid body simulator using polygon interference detection
 Current stable release is **v0.1-dev**
 
 Special thanks to Stefan Gottschalk for his thesis on Collison Queries
