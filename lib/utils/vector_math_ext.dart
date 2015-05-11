@@ -35,5 +35,4 @@ Obb3 Obb3_fitFromPoints(List<Vector3> points)
 
 void QR_gram_schmidt(Matrix3 matrix, Vector3 eigval, Matrix3 eigvec)
 {
-
 }
