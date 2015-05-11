@@ -5,4 +5,10 @@ class ObbTree
 {
   List<Obb3> _boxes;
 
+  //Construct an ObbTree
+  ObbTree.fromPoints(List<Vector3D> points, int divide)
+  {
+    Obb3 box = Obb3_fitFromPoints(points);
+  }
+
 }

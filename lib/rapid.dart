@@ -1,8 +1,6 @@
 // The rapid.dart library is designed to process efficient
 // rigid body simulation with polygon interference detection
 //
-// Techniques are inspired by the RAPID library (http://gamma.cs.unc.edu/OBB/)
-//
 // This library contains an adaptation of a spacial subdivision class ([KdTree]),
 // ...
 // The interface for collision query is [World].
@@ -19,3 +17,5 @@ part 'src/kd_tree.dart';
 part 'src/collider.dart';
 part 'src/collision.dart';
 part 'src/world.dart';
+
+part 'utils/vector_math_ext.dart';
