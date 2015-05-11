@@ -5,9 +5,9 @@ part of rapid;
 //At the [timestamp] mark
 class Collision
 {
-  Collider a;
-  Collider b;
-  double   timestamp;
+  final Collider a;
+  final Collider b;
+  final double   timestamp;
 
   Collision(this.a, this.b, this.timestamp);
 }
