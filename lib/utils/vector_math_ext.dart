@@ -33,6 +33,18 @@ Obb3 Obb3_fitFromPoints(List<Vector3> points)
   return Obb3_fitFromCovarianceMatrix(cov, points);
 }
 
-void QR_gram_schmidt(Matrix3 matrix, Vector3 eigval, Matrix3 eigvec)
+void Matrix3_QR_gram_schmidt(Matrix3 matrix, Matrix3 Q, Matrix3 R)
+{
+}
+
+void Matrix3_QR_householder(Matrix3 matrix, Matrix3 Q, Matrix3 R)
+{
+}
+
+void Matrix3_QR_algo_shifts(Matrix3 matrix, Matrix3 eigvecs, Vector3 eigvals)
+{
+}
+
+void Matrix3_QR_algo_symmetric(Matrix3 matrix, Matrix3 eigvecs, Vector3 eigvals)
 {
 }
