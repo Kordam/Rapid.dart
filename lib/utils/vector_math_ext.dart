@@ -144,7 +144,7 @@ void tql2(Matrix3 V, Vector3 d, Vector3 e)
           d[i+1] = h + s * (c * g + s * d[i]);
 
 // Accumulate transformation.
-          for (int k = 0; k < n; k++) {
+          for (int k = 0; k < 3; k++) {
             h = V.getRow(k)[i+1];
             V.setEntry(k, i+1, s * V.getRow(k)[i] + c * h);
             V.setEntry(k, i, c * V.getRow(k)[i] - s * h);
