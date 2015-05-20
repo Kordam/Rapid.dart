@@ -30,7 +30,7 @@ Obb3 Obb3_fitFromCovarianceMatrix(Matrix3 cov, List<Vector3> points)
 
   Vector3 center = (minim + maxim) * 0.5;
   Vector3 pos = new Vector3(rot.getRow(0).dot(center), rot.getRow(1).dot(center), rot.getRow(2).dot(center));
-  Obb3 box = new Obb3.centerExtentsAxes(center + pos, (maxim - minim) * 0.5, rot.getRow(0), rot.getRow(1), rot.getRow(2));
+  Obb3 box = new Obb3.centerExtentsAxes(center, (maxim - minim) * 0.5, rot.getRow(0), rot.getRow(1), rot.getRow(2));
   return box;
 }
 

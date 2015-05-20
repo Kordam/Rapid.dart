@@ -18,15 +18,32 @@ void testBuild()
   expect(box.center.z, isNot(0.0));
 }
 
-void testInsert()
+void testCube()
 {
+  var points = new List<Vector3>();
+  points.add(new Vector3(0.0, 0.0, 0.0)); // Top face bl
+  points.add(new Vector3(10.0, 0.0, 0.0)); // Top face br
+  points.add(new Vector3(10.0, 10.0, 0.0)); // Top face tr
+  points.add(new Vector3(0.0, 10.0, 0.0)); // Top face tl
+  points.add(new Vector3(0.0, 0.0, 10.0)); //Left face bl
+  points.add(new Vector3(0.0, 10.0, 10.0)); //Left face tl
+  points.add(new Vector3(10.0, 0.0, 10.0)); //Right face bl
+  points.add(new Vector3(10.0, 10.0, 10.0)); //Right face tl
 
+  var tree = new ObbTree.fromPoints(points, 0);
+  var box = tree.boxes.first;
+  expect(box.center.x, equals(5.0));
+  expect(box.center.y, equals(5.0));
+  expect(box.center.z, equals(5.0));
+  expect(box.halfExtents.x, equals(5.0));
+  expect(box.halfExtents.y, equals(5.0));
+  expect(box.halfExtents.z, equals(5.0));
 }
 
 void main()
 {
   group('Obb Tree', () {
-    test('Build', testBuild);
-    test('Insert', testInsert);
+    test('Build random', testBuild);
+    test('Cube', testCube);
   });
 }
