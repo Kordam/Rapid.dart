@@ -15,6 +15,6 @@ class Collider
   Collider.fromVertices(List<Vector3> v)
   {
     vertices = v;
-    bounds = new ObbTree.fromPoints(vertices);
+    bounds = new ObbTree.fromPoints(vertices, 0);
   }
 }
