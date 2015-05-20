@@ -13,14 +13,18 @@ Special thanks to Stefan Gottschalk for his thesis on Collison Queries
 
 ## Getting started
 
-1. Add the following to your project's **pubspec.yaml** and run `pub get`.
-       ```
-          dependencies:
-            rapid: any ```
+1\. Add the following to your project's **pubspec.yaml** and run ```pub get```
 
-2. Import rapid.dart in your project
-       ```
-          import 'package:rapid/rapid.dart'; ```
+```yaml
+dependencies:
+ rapid: any
+```
+
+2\. Import rapid.dart in your project
+
+```dart
+import 'package:rapid/rapid.dart';
+```
 
 ## Documentation
 TODO
