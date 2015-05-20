@@ -1,6 +1,6 @@
 library rapid.test.collider_test;
 
-import 'package:test/test.dart';
+import 'package:unittest/unittest.dart';
 import 'package:rapid/rapid.dart';
 
 void testBuild() {}
