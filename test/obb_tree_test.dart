@@ -12,7 +12,7 @@ void testBuild()
   points.add(new Vector3(15.0, 5.0, 1.0));
   points.add(new Vector3(20.0, 5.0, 0.0));
   var tree = new ObbTree.fromPoints(points, 0);
-  var box = tree.boxes.first;
+  var box = tree.rootBox.first;
   expect(box.center.x, isNot(0.0));
   expect(box.center.y, isNot(0.0));
   expect(box.center.z, isNot(0.0));
@@ -31,7 +31,7 @@ void testCube()
   points.add(new Vector3(10.0, 10.0, 10.0)); //Right face tl
 
   var tree = new ObbTree.fromPoints(points, 0);
-  var box = tree.boxes.first;
+  var box = tree.rootBox.first;
   expect(box.center.x, equals(5.0));
   expect(box.center.y, equals(5.0));
   expect(box.center.z, equals(5.0));
