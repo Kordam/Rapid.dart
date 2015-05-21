@@ -6,13 +6,22 @@ const double EPSILON = 1e-5;
 Vector3 Obb3_longestAxis(Obb3 obb)
 {
   var v = new Vector3.zero();
+  Vector3.max(obb.axis0, obb.axis1, v);
+  Vector3.max(obb.axis2, v, v);
   return v;
 }
 
 //Compute a plane that is orthogonal to [axis] and pass by [point]
+//If the [point] list is considered to be inseparable,
+//this function should throw an exception.
 Plane Plane_fromAxisAndPoint(Vector3 axis, Vector3 point)
 {
-  var p = new Plane();
+  //MUST CHECK ALL AXIS
+  if (axis.normalized().dot(point.normalized()) == 0.0)
+    return new Plane.normalconstant(axis, 1.0);
+  var ortho = axis.cross(point);
+  var p = new Plane.normalconstant(ortho, 1.0);
+  print(p.toString());
   return p;
 }
 
