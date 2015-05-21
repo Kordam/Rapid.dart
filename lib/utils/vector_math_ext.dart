@@ -2,6 +2,21 @@ part of rapid;
 
 const double EPSILON = 1e-5;
 
+//Find the longest axis of an [obb]
+Vector3 Obb3_longestAxis(Obb3 obb)
+{
+  var v = new Vector3.zero();
+  return v;
+}
+
+//Compute a plane that is orthogonal to [axis] and pass by [point]
+Plane Plane_fromAxisAndPoint(Vector3 axis, Vector3 point)
+{
+  var p = new Plane();
+  return p;
+}
+
+//Construct an obb3 from a covariance matrix [cov]and a list of [points]
 Obb3 Obb3_fitFromCovarianceMatrix(Matrix3 cov, List<Vector3> points)
 {
   Matrix3 rot = new Matrix3.zero();
@@ -34,7 +49,9 @@ Obb3 Obb3_fitFromCovarianceMatrix(Matrix3 cov, List<Vector3> points)
   return box;
 }
 
-Obb3 Obb3_fitFromPoints(List<Vector3> points)
+//Construct an Obb3 from a list of [points],
+//the centroid point will be stored in [mean]if provided
+Obb3 Obb3_fitFromPoints(List<Vector3> points, {Vector3 mean : null})
 {
   Vector3 m = new Vector3(0.0, 0.0, 0.0);
   Matrix3 cov = new Matrix3.zero();
@@ -42,6 +59,8 @@ Obb3 Obb3_fitFromPoints(List<Vector3> points)
   //Find the mean point
   points.forEach((p) => m += p);
   m /= points.length.toDouble();
+  if (mean != null)
+    m.copyInto(mean);
 
   //Compute the covariance matrix
   double cxx = 0.0, cxy = 0.0, cxz = 0.0,
@@ -63,7 +82,7 @@ Obb3 Obb3_fitFromPoints(List<Vector3> points)
 }
 
 
-
+//Computes eigen vectors and eigen values from a 3x3 symmetric [matrix]
 void Matrix3_compute_symmetric_eigen(Matrix3 matrix, Matrix3 eigvecs, Vector3 eigvals)
 {
   Vector3 tmp = new Vector3.zero();
