@@ -24,9 +24,10 @@ class ObbTree
   ObbTree.fromPoints(List<Vector3> points, int divide)
   {
     Obb3 box = Obb3_fitFromPoints(points);
-    _root = new ObbTreeNode(1, box, points: points);
+    _root = new ObbTreeNode(1, box, points: points, leaf: true);
     if (divide > 1) {
       _split(_root, 1, divide);
+      _root.leaf = false;
       _root.points.clear(); //Clear points after subdivision
       _root.points = null;
     }
