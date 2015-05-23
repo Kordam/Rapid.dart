@@ -41,9 +41,8 @@ class ObbTree
   //by filling the left an right child nodes
   void _split(ObbTreeNode parent, Vector3 mean, int currentDepth, int maxDepth)
   {
-
-    //NOT THAT SIMPLE
-    var p = Plane_fromAxisAndPoint(Obb3_longestAxis(parent.box), mean);
+    var p = Obb3_splitPlane(parent.box, mean);
+    print("Plane normal ${p.normal}}");
 
     //Sort points
     List<Vector3> left_points = new List<Vector3>();

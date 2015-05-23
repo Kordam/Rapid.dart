@@ -2,23 +2,46 @@ part of rapid;
 
 const double EPSILON = 1e-5;
 
-//Find the longest axis of an [obb]
-Vector3 Obb3_longestAxis(Obb3 obb)
+//Sort the axis of an [obb] by size
+List<Vector3> Obb3_sortAxis(Obb3 obb)
 {
-  var v = new Vector3.zero();
-  Vector3.max(obb.axis0, obb.axis1, v);
-  Vector3.max(obb.axis2, v, v);
-  return v;
+  var cmp = new Vector3.zero();
+  var res = new List<Vector3>();
+  res.add(obb.axis0);
+  res.add(obb.axis1);
+  res.add(obb.axis2);
+  res.sort((a, b) {
+   Vector3.max(a, b, cmp);
+    if (cmp == a)
+      return 1;
+    return 0;
+  });
+  return res;
 }
 
-//Compute a plane that is orthogonal to [axis] and pass by [point]
-//If the [point] list is considered to be inseparable,
+
+//Compute a plane that splits a [box] and pass by [point]
+//If the [box] is considered to be inseparable,
 //this function should throw an exception.
-Plane Plane_fromAxisAndPoint(Vector3 axis, Vector3 point)
+Plane Obb3_splitPlane(Obb3 box, Vector3 point)
 {
   //MUST CHECK ALL AXIS
-  if (axis.normalized().dot(point.normalized()) == 0.0)
-    return new Plane.normalconstant(axis, 1.0);
+  var li = Obb3_sortAxis(box);
+  var axis = null;
+  //Chose the first axis that works
+  if (li[0].normalized().dot(point.normalized()) != 0.0) {
+    axis = li[0];
+  }
+  else if (li[1].normalized().dot(point.normalized()) != 0.0) {
+    axis = li[1];
+  }
+  else if (li[2].normalized().dot(point.normalized()) != 0.0) {
+    axis = li[2];
+  }
+  else {
+      throw new SplitBoxException("No axis found to split at ${point.toString()}");
+  }
+
   var ortho = axis.cross(point);
   var p = new Plane.normalconstant(ortho, 1.0);
   print(p.toString());
