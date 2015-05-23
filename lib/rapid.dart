@@ -18,5 +18,6 @@ part 'src/collider.dart';
 part 'src/collision.dart';
 part 'src/world.dart';
 part 'src/obb_tree.dart';
+part 'src/exception.dart';
 
 part 'utils/vector_math_ext.dart';
