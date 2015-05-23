@@ -25,7 +25,6 @@ List<Vector3> Obb3_sortAxis(Obb3 obb)
 //this function should throw an exception.
 Plane Obb3_splitPlane(Obb3 box, Vector3 point)
 {
-  //MUST CHECK ALL AXIS
   var li = Obb3_sortAxis(box);
   var axis = null;
   //Chose the first axis that works
@@ -42,9 +41,8 @@ Plane Obb3_splitPlane(Obb3 box, Vector3 point)
       throw new SplitBoxException("No axis found to split at ${point.toString()}");
   }
 
-  var ortho = axis.cross(point);
-  var p = new Plane.normalconstant(ortho, 1.0);
-  print(p.toString());
+  var d = axis[0] * point[0] + axis[1] * point[1] + axis[2] * point[2];
+  var p = new Plane.normalconstant(axis, d);
   return p;
 }
 

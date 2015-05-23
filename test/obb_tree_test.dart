@@ -48,6 +48,28 @@ void testBuildSplit()
   expect(box.center.z, isNot(0.0));
 }
 
+void testBuildSplit2()
+{
+  var points = new List<Vector3>();
+  points.add(new Vector3(1.0, 5.0, 1.0));
+  points.add(new Vector3(10.0, 5.0, 12.0));
+  points.add(new Vector3(15.0, 5.0, 1.0));
+  points.add(new Vector3(20.0, 5.0, 0.0));
+  points.add(new Vector3(-1.0, 5.0, 100.0));
+  points.add(new Vector3(10.0, 8.0, 56.0));
+  points.add(new Vector3(45.0, 87.0, -1.0));
+  points.add(new Vector3(20.0, 7.0, 0.0));
+  points.add(new Vector3(42.0, 5.0, -3.0));
+  points.add(new Vector3(42.0, 56.0, 0.0));
+  points.add(new Vector3(55.0, 5.0, 1.0));
+  points.add(new Vector3(25.0, 125.0, -50.0));
+  var tree = new ObbTree.fromPoints(points, 3);
+  var box = tree.rootBox;
+  expect(box.center.x, isNot(0.0));
+  expect(box.center.y, isNot(0.0));
+  expect(box.center.z, isNot(0.0));
+}
+
 void testCube()
 {
   var points = new List<Vector3>();
@@ -97,6 +119,7 @@ void main()
   group('Obb Tree', () {
     test('Build random no divide', testBuild);
     test('Build random 2 nodes', testBuildSplit);
+    test('Build random 6 nodes', testBuildSplit2);
     test('Cube no divide', testCube);
     test('Cube with 2 nodes', testCubeDivide_1);
   });
