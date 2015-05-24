@@ -14,7 +14,7 @@ List<Vector3> Obb3_sortAxis(Obb3 obb)
    Vector3.max(a, b, cmp);
     if (cmp == a)
       return 1;
-    return 0;
+    return -1;
   });
   return res;
 }
