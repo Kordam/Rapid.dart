@@ -61,7 +61,6 @@ class ObbTree
     var p = Obb3_splitPlane(parent.box, parent.centroid);
     print("Depth ${currentDepth} Centroid ${parent.centroid.toString()} Plane normal ${p.normal}}");
 
-    //TODOOOOO
     //Sort points
     List<Vector3> left_points = new List<Vector3>();
     List<Vector3> right_points  = new List<Vector3>();
