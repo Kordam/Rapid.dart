@@ -59,23 +59,36 @@ class ObbTree
   void _splitPoints(ObbTreeNode parent, int currentDepth, int maxDepth)
   {
     var p = Obb3_splitPlane(parent.box, parent.centroid);
-    print("Plane normal ${p.normal}}");
+    print("Depth ${currentDepth} Centroid ${parent.centroid.toString()} Plane normal ${p.normal}}");
 
     //TODOOOOO
     //Sort points
     List<Vector3> left_points = new List<Vector3>();
     List<Vector3> right_points  = new List<Vector3>();
+    parent.points.forEach((point) {
+      if (p.distanceToVector3(point) >= 0.0) {
+        left_points.add(point);
+      }
+      else {
+        right_points.add(point);
+      }
+    });
 
     //Allocate Left part
-    Vector3 left_mean = new Vector3.zero();
-    Obb3 left_box = Obb3_fitFromPoints(left_points, mean: left_mean);
-    ObbTreeNode left = new ObbTreeNode(left_box, left_points, null, left_mean, depth: currentDepth);
+    ObbTreeNode left = null;
+    if (left_points.length > 0) {
+      Vector3 left_mean = new Vector3.zero();
+      Obb3 left_box = Obb3_fitFromPoints(left_points, mean: left_mean);
+      left = new ObbTreeNode(left_box, left_points, null, left_mean, depth: currentDepth);
+    }
 
     //Allocate right part
-    Vector3 right_mean = new Vector3.zero();
-    Obb3 right_box = Obb3_fitFromPoints(right_points, mean: right_mean);
-    ObbTreeNode right = new ObbTreeNode(right_box, right_points, null, right_mean, depth: currentDepth);
-
+    ObbTreeNode right = null;
+    if (right_points.length > 0) {
+      Vector3 right_mean = new Vector3.zero();
+      Obb3 right_box = Obb3_fitFromPoints(right_points, mean: right_mean);
+      right = new ObbTreeNode(right_box, right_points, null, right_mean, depth: currentDepth);
+    }
 
     //Assign parent node left & right
     parent.left = left;
@@ -83,15 +96,21 @@ class ObbTree
 
     currentDepth++;
     if (currentDepth > maxDepth) {
-      parent.left.leaf = true;
-      parent.right.leaf = true;
+      if (left != null)
+        parent.left.leaf = true;
+      if (right != null)
+        parent.right.leaf = true;
       return;
     }
     else {
-      _splitPoints(parent.left, currentDepth, maxDepth);
-      parent.left.points = null; //Clear points after subdivision
-      _splitPoints(parent.right, currentDepth, maxDepth);
-      parent.right.points = null;//Clear points after subdivision
+      if (left != null) {
+        _splitPoints(parent.left, currentDepth, maxDepth);
+        parent.left.points = null; //Clear points after subdivision
+      }
+      if (right != null) {
+        _splitPoints(parent.right, currentDepth, maxDepth);
+        parent.right.points = null; //Clear points after subdivision
+      }
     }
   }
 
