@@ -79,6 +79,61 @@ Obb3 Obb3_fitFromCovarianceMatrix(Matrix3 cov, List<Vector3> points)
   return box;
 }
 
+//Construct an Obb3 from a list of integers triangles [indices]
+//and associated [points], the centroid will be stored in [mean]
+//if provided
+Obb3 Obb3_fitFromTriangles(List<int> indices, List<Vector3> points, {Vector3 mean : null})
+{
+  double Ai = 0.0;
+  double Am =0.0;
+  Vector3 mu = new Vector3.zero();
+  Vector3 mui = new Vector3.zero();
+  Matrix3 cov = new Matrix3.zero();
+  Vector3 m = new Vector3.zero();
+  double cxx=0.0, cxy=0.0, cxz=0.0, cyy=0.0, cyz=0.0, czz=0.0;
+
+  //Find the mean point
+  points.forEach((p) => m += p);
+  m /= points.length.toDouble();
+  if (mean != null)
+    m.copyInto(mean);
+
+  // loop over the triangles this time to find the
+  // mean location
+  for(var i=0; i < indices.length; i+=3 )
+  {
+    Vector3 p = points[indices[i+0]];
+    Vector3 q = points[indices[i+1]];
+    Vector3 r = points[indices[i+2]];
+    mui = (p+q+r)/3.0;
+    Ai = (q-p).cross(r-p).normalizeLength() / 2.0;
+    mu += mui*Ai;
+    Am += Ai;
+
+    // these bits set the c terms to Am*E[xx], Am*E[xy], Am*E[xz]....
+    cxx += ( 9.0*mui.x*mui.x + p.x*p.x + q.x*q.x + r.x*r.x )*(Ai/12.0);
+    cxy += ( 9.0*mui.x*mui.y + p.x*p.y + q.x*q.y + r.x*r.y )*(Ai/12.0);
+    cxz += ( 9.0*mui.x*mui.z + p.x*p.z + q.x*q.z + r.x*r.z )*(Ai/12.0);
+    cyy += ( 9.0*mui.y*mui.y + p.y*p.y + q.y*q.y + r.y*r.y )*(Ai/12.0);
+    cyz += ( 9.0*mui.y*mui.z + p.y*p.z + q.y*q.z + r.y*r.z )*(Ai/12.0);
+  }
+  // divide out the Am fraction from the average position and
+  // covariance terms
+  mu /= Am;
+  cxx /= Am; cxy /= Am; cxz /= Am; cyy /= Am; cyz /= Am; czz /= Am;
+
+  // now subtract off the E[x]*E[x], E[x]*E[y], ... terms
+  cxx -= mu.x*mu.x; cxy -= mu.x*mu.y; cxz -= mu.x*mu.z;
+  cyy -= mu.y*mu.y; cyz -= mu.y*mu.z; czz -= mu.z*mu.z;
+
+  // now build the covariance matrix
+  cov.setValues(cxx, cxy, cxz,
+                cxy, cyy, cyz,
+                cxz, cyz, czz);
+
+  return Obb3_fitFromCovarianceMatrix(cov, points);
+}
+
 //Construct an Obb3 from a list of [points],
 //the centroid point will be stored in [mean]if provided
 Obb3 Obb3_fitFromPoints(List<Vector3> points, {Vector3 mean : null})
@@ -105,8 +160,8 @@ Obb3 Obb3_fitFromPoints(List<Vector3> points, {Vector3 mean : null})
   });
 
   cov.setValues(cxx, cxy, cxz,
-                cxy, cyy, cyz,
-                cxz, cyz, czz);
+  cxy, cyy, cyz,
+  cxz, cyz, czz);
 
   return Obb3_fitFromCovarianceMatrix(cov, points);
 }
