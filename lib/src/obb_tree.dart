@@ -53,7 +53,7 @@ class ObbTree
 
 
   //Recursive method that splits the [parent] node
-  //on the longest axis of [node] and the point [mean]
+  //on the longest axis of [node]
   //by filling the left an right child nodes
   void _splitPoints(ObbTreeNode parent, int currentDepth, int maxDepth)
   {
@@ -95,7 +95,7 @@ class ObbTree
   }
 
   //Recursive method that splits the [parent] node
-  //on the longest axis of [node] and the point [mean]
+  //on the longest axis of [node]
   //by filling the left an right child nodes
   void _splitTriangles(ObbTreeNode parent, int currentDepth, int maxDepth)
   {
