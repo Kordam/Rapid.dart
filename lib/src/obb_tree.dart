@@ -30,7 +30,7 @@ class ObbTree
     Vector m = new Vector3.zero();
     Obb3 box = Obb3_fitFromPoints(points, mean: m);
 
-    _root = new ObbTreeNode(box, points, null, m, depth: 1, leaf: true);
+    _root = new ObbTreeNode(box, points, null, m, depth: 0, leaf: true);
     if (divide >= 1) {
       _splitPoints(_root, 1, divide);
       _root.leaf = false;
@@ -44,9 +44,9 @@ class ObbTree
     Vector m = new Vector3.zero();
     Obb3 box = Obb3_fitFromTriangles(tris, points, mean: m);
 
-    _root = new ObbTreeNode(box, points, tris, m, depth: 1, leaf: true);
+    _root = new ObbTreeNode(box, points, tris, m, depth: 0, leaf: true);
     if (divide >= 1) {
-      _splitTriangle(_root, m, 1, divide);
+      _splitTriangles(_root, 1, divide);
       _root.leaf = false;
     }
   }
@@ -92,6 +92,14 @@ class ObbTree
       _splitPoints(parent.right, currentDepth, maxDepth);
       parent.right.points = null;//Clear points after subdivision
     }
+  }
+
+  //Recursive method that splits the [parent] node
+  //on the longest axis of [node] and the point [mean]
+  //by filling the left an right child nodes
+  void _splitTriangles(ObbTreeNode parent, int currentDepth, int maxDepth)
+  {
+
   }
 
   get rootBox => _root.box;
