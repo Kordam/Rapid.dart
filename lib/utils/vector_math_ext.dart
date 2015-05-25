@@ -11,10 +11,10 @@ List<Vector3> Obb3_sortAxis(Obb3 obb)
   res.add(obb.axis1);
   res.add(obb.axis2);
   res.sort((a, b) {
-   Vector3.max(a, b, cmp);
+   Vector3.min(a, b, cmp);
     if (cmp == a)
-      return 1;
-    return -1;
+      return -1;
+    return 1;
   });
   return res;
 }

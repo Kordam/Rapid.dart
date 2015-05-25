@@ -66,7 +66,7 @@ class ObbTree
     List<Vector3> left_points = new List<Vector3>();
     List<Vector3> right_points  = new List<Vector3>();
     parent.points.forEach((point) {
-      if (p.distanceToVector3(point) >= 0.0) {
+      if (p.distanceToVector3(point) > 0.0) {
         left_points.add(point);
       }
       else {
@@ -122,5 +122,6 @@ class ObbTree
 
   }
 
+  get root => _root;
   get rootBox => _root.box;
 }
