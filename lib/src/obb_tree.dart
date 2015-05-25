@@ -34,8 +34,7 @@ class ObbTree
     if (divide >= 1) {
       _splitPoints(_root, 1, divide);
       _root.leaf = false;
-      _root.points.clear(); //Clear points after subdivision
-      _root.points = null;
+      _root.points = null;  //Clear points after subdivision
     }
   }
 
@@ -48,6 +47,8 @@ class ObbTree
     if (divide >= 1) {
       _splitTriangles(_root, 1, divide);
       _root.leaf = false;
+      _root.points = null;  //Clear points after subdivision
+      _root.tris = null;  //Clear tris after subdivision
     }
   }
 
