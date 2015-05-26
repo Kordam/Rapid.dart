@@ -64,14 +64,7 @@ class ObbTree
     //Sort points
     List<Vector3> left_points = new List<Vector3>();
     List<Vector3> right_points  = new List<Vector3>();
-    parent.points.forEach((point) {
-      if (p.distanceToVector3(point) > 0.0) {
-        left_points.add(point);
-      }
-      else {
-        right_points.add(point);
-      }
-    });
+    Plane_separatePoints(p, parent.points, left_points, right_points);
 
     //Allocate Left part
     ObbTreeNode left = null;
@@ -126,26 +119,7 @@ class ObbTree
     List<int> right_tris = new List<int>();
     List<Vector3> left_points = new List<Vector3>();
     List<Vector3> right_points  = new List<Vector3>();
-    for (var i = 0; i < parent.tris.length; i += 3) {
-      var p1 = parent.points[parent.tris[i + 0]];
-      var p2 = parent.points[parent.tris[i + 1]];
-      var p3 = parent.points[parent.tris[i + 2]];
-      var dist = p.distanceToVector3(p1) + p.distanceToVector3(p2) + p.distanceToVector3(p3);
-      if (dist >= 0.0) {
-        left_tris.add(parent.tris[i + 0]);
-        left_tris.add(parent.tris[i + 1]);
-        left_tris.add(parent.tris[i + 2]);
-      }
-      else {
-        right_tris.add(parent.tris[i + 0]);
-        right_tris.add(parent.tris[i + 1]);
-        right_tris.add(parent.tris[i + 2]);
-      }
-    }
-
-    //Reindex points
-
-
+    Plane_separateTris(p, parent.points, parent.tris, left_points, right_points, left_tris, right_tris);
 
     //Allocate Left part
     ObbTreeNode left = null;
