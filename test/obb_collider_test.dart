@@ -95,7 +95,7 @@ void testCollideCubeX()
   ObbCollider c2 = new ObbCollider.fromTriangles(tris, points);
   //Translate method should be available
   //c2.translate(new Vector3(5.0, 0.0, 0.0));
-  expect(c1.collideWith(c2), equals(false));
+  expect(c1.collideWith(c2), equals(true));
 }
 
 void testNoCollideCubeY()
