@@ -14,8 +14,7 @@ import 'dart:async';
 import 'package:vector_math/vector_math.dart';
 
 part 'src/kd_tree.dart';
-part 'src/collider.dart';
-part 'src/collision.dart';
+part 'src/obb_collider.dart';
 part 'src/world.dart';
 part 'src/obb_tree.dart';
 part 'src/exception.dart';
