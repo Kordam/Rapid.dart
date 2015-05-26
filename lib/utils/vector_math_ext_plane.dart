@@ -4,7 +4,14 @@ part of rapid;
 //according to the [plane]
 bool Plane_separatePoints(Plane p, List<Vector3> points, List<Vector3> left, List<Vector3> right)
 {
-
+  points.forEach((point) {
+    if (p.distanceToVector3(point) > 0.0) {
+      left.add(point);
+    }
+    else {
+      right.add(point);
+    }
+  });
 }
 
 
@@ -15,5 +22,21 @@ bool Plane_separateTris(Plane p, List<Vector3> points, List<int> tris,
                         List<Vector3> left_points, List<Vector3> right_points,
                         List<int> left_tris, List<int> right_tris)
 {
+  for (var i = 0; i < tris.length; i += 3) {
+    var p1 = points[tris[i + 0]];
+    var p2 = points[tris[i + 1]];
+    var p3 = points[tris[i + 2]];
+    var dist = p.distanceToVector3(p1) + p.distanceToVector3(p2) + p.distanceToVector3(p3);
+    if (dist >= 0.0) {
+      left_tris.add(tris[i + 0]);
+      left_tris.add(tris[i + 1]);
+      left_tris.add(tris[i + 2]);
+    }
+    else {
+      right_tris.add(tris[i + 0]);
+      right_tris.add(tris[i + 1]);
+      right_tris.add(tris[i + 2]);
+    }
+  }
 
 }
