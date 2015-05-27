@@ -3,6 +3,7 @@ part of rapid;
 //Define a rigid body container class
 class Body
 {
+  var      _local_timer = 0.0;
   Collider _bounds;
 
   Body();
@@ -18,4 +19,6 @@ class Body
   }
 
   get pos => _bounds.center;
+  get timestamp => _local_timer;
+  set timestamp(double time) => _local_timer = time;
 }
