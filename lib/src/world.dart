@@ -20,7 +20,13 @@ class World
   }
 
   void addObject(Body obj) {
+    //Insert in space
     _space.insert(obj.pos, obj);
+    //Compute incoming collisions with objects
+     //Find nearest OBJs
+     //Test nearest OBJs
+     //Register collisions in nearest OBJS
+     //Registers collisions with nearest OBJs
   }
 
   void removeObject(Body obj) {
@@ -36,25 +42,20 @@ class World
   }
 
   //Update the simulation by [delta] milliseconds
+  //Should take approximately O(n * log2(n))
   void update(double delta)
   {
-    // ***** O(n) *****
     //For each obj in space
     //Remove obj from space
-    //Update obj pos
+    //While obj timestamp + delta not meet
+      //Update obj pos until next collisions
+        //Compute collision reaction
+        //Update collision obj to time
+        //Find nearest OBjS
+        //Test nearest OBJs
+        // Register collisions in nearest OBJ
+        // Register collisions in current OBJ
     //Add obj in space
-
-    // ***** O(log2(n)n^2) *****
-    //For each obj1 in space
-     //remove from space
-     //For each obj2 in space
-        // ***** O(log2(n)) worst = O(n) *****
-        //while Test collisions
-        //remove from space obj2
-        //correct pos obj2
-        //correct pos obj1
-        //add in space obj2
-     //add obj1 in space
 
     //Increment timer
     _timer += delta;
