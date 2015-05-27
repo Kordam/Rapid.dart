@@ -8,7 +8,7 @@ class Body
   Body();
 
   //Moves a body of [delta] in model space
-  void translate(Vector3 delata) {
+  void translate(Vector3 delta) {
 
   }
 
