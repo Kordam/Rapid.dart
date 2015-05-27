@@ -30,6 +30,10 @@ class World
   }
 
   void removeObject(Body obj) {
+
+    //Clear scheduled collisions
+
+    //Removed from working space
     _space.remove(obj.pos);
   }
 
@@ -51,7 +55,8 @@ class World
       //Update obj pos until next collisions
         //Compute collision reaction
         //Update collision obj to time
-        //Find nearest OBjS
+        //Clear old collisions
+        //Find nearest OBJS
         //Test nearest OBJs
         // Register collisions in nearest OBJ
         // Register collisions in current OBJ
