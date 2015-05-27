@@ -38,14 +38,23 @@ class World
   //Update the simulation by [delta] milliseconds
   void update(double delta)
   {
+    // ***** O(n) *****
     //For each obj in space
-    //Remove from space
-    //Update pos
-    //Add in space
-    //while Test collisions
-      //remove from space
-      //correct pos
-      //add in space
+    //Remove obj from space
+    //Update obj pos
+    //Add obj in space
+
+    // ***** O(log2(n)n^2) *****
+    //For each obj1 in space
+     //remove from space
+     //For each obj2 in space
+        // ***** O(log2(n)) worst = O(n) *****
+        //while Test collisions
+        //remove from space obj2
+        //correct pos obj2
+        //correct pos obj1
+        //add in space obj2
+     //add obj1 in space
 
     //Increment timer
     _timer += delta;
