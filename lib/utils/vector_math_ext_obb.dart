@@ -41,7 +41,8 @@ Plane Obb3_splitPlane(Obb3 box, Vector3 point)
       throw new SplitBoxException("No axis found to split at ${point.toString()}");
   }
 
-  var d = axis[0] * point[0] + axis[1] * point[1] + axis[2] * point[2];
+  var d = axis.dot(point);
+  //var d = axis[0] * point[0] + axis[1] * point[1] + axis[2] * point[2];
   var p = new Plane.normalconstant(axis, d);
   return p;
 }

@@ -3,10 +3,10 @@ part of rapid;
 
 Plane Triangle_toPlane(Triangle that)
 {
-  var v1 = that.point2 - that.point0;
-  var v2 = that.point1 - that.point0;
+  var v1 = that.point1 - that.point0;
+  var v2 = that.point2 - that.point0;
   var normal = v1.cross(v2);
-  var d = normal[0] * that.point0[0] + normal[1] * that.point0[1] + normal[2] * that.point0[2];
+  var d = normal.dot(that.point0); //normal[0] * that.point0[0] + normal[1] * that.point0[1] + normal[2] * that.point0[2];
   return new Plane.normalconstant(normal, d);
 }
 
@@ -14,6 +14,7 @@ Plane Triangle_toPlane(Triangle that)
 bool Triangle_intersectsWithTriangle(Triangle that, Triangle other)
 {
   Plane p2 = Triangle_toPlane(other);
+  double delta = p2.normal.distanceToSquared(new Vector3.zero());
   double d0 = p2.distanceToVector3(that.point0);
   double d1 = p2.distanceToVector3(that.point1);
   double d2 = p2.distanceToVector3(that.point2);
@@ -33,6 +34,7 @@ bool Triangle_intersectsWithTriangle(Triangle that, Triangle other)
 
   //Compute Intersection Line of p1 and p2
   Vector3 line_D = p1.normal.cross(p2.normal);
+  print("Line D: ${line_D.toString()}");
 
   //Compute t1 points projection on line distance
   double proj_0 = line_D.dot(that.point0);
@@ -52,5 +54,5 @@ bool Triangle_intersectsWithTriangle(Triangle that, Triangle other)
 
   //Return intervals overlap test
   //Source: GPGPU Programming for Games and Science By David H. Eberly
-  return (max(s1, s2) > min(t1, t2) && max(t1, t2) > min(s1, s2));
+  return (max(s1, s2) > min(t1, t2) && max(t1, t2) > min(s1, s2)) ? true : false;
 }
