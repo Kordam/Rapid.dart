@@ -27,8 +27,37 @@ class ObbCollider extends Collider
   //If so, Lists of colliding [points] and faces [idx] can be filled
   bool collideWithObb(ObbCollider oth, {List<int> idx: null, List<Vector3> points: null})
   {
+    //Perform larger Obb test
+    if (_tree.rootBox.intersectsWithObb3(oth._tree.rootBox) == false)
+      return false;
+
+
+    _tree.leaves.forEach((l) {
+      if (l.box.intersectsWithObb3(oth._tree.rootBox)) {
+        var idx_li = new List<int>();
+        var point_li = new List<Vector3>();
+        _findObbContactPoints(oth._tree.root, l, idx_li, point_li);
+      }
+    });
+
     return false;
   }
+
+  bool _findObbContactPoints(ObbTreeNode root, ObbTreeNode node, List<int> idx, List<Vector3> points) {
+    //Recurse to leave that intersect
+    if (root.leaf == false) {
+      if (root.left != null && node.box.intersectsWithObb3(root.left.box)) {
+        _findObbContactPoints(root.left, node, idx, points);
+      }
+      if (root.right != null && node.box.intersectsWithObb3(root.right.box)) {
+        _findObbContactPoints(root.left, node, idx, points);
+      }
+    }
+    else { //Leaf intersects with node
+
+    }
+  }
+
 
   //Check if current ObbCollider collide with an AbbCollider,
   //If so, Lists of colliding [points] and faces [idx] can be filled
