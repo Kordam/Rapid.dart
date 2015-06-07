@@ -61,3 +61,31 @@ bool Plane_separateTris(Plane p, List<Vector3> points, List<int> tris,
   }
   return true;
 }
+
+/* Plane line intersection
+  //Compute Intersection Line of p1 and p2
+  var line_D = p1.normal.cross(p2.normal);
+  var line_O = new Vector3.zero();
+  var det;
+  if (line_D[0] != 0.0) { // let x = 0, solve for y, z
+    det = p1.normal[1] * p2.normal[2] - p1.normal[2] * p2.normal[1];
+    line_O[0] = 0.0;
+    line_O[1] = (p2.normal[2] * p1.constant - p1.normal[2] * p2.constant) / det;
+    line_O[2] = (-p2.normal[1] * p1.constant + p1.normal[1] * p2.constant) / det;
+  }
+  else if (line_D[1] != 0.0) { // let y = 0, solve for x, z
+    det = p1.normal[0] * p2.normal[2] - p1.normal[2] * p2.normal[0];
+    line_O[0] = (p2.normal[2] * p1.constant - p1.normal[2] * p2.constant) / det;
+    line_O[1] = 0.0;
+    line_O[2] = (-p2.normal[0] * p1.constant + p1.normal[0] * p2.constant) / det;
+  }
+  else if (line_D[2] != 0.0) { // let z = 0, solve for x, y
+      det = p1.normal[0] * p2.normal[1] - p1.normal[1] * p2.normal[0];
+      line_O[0] = (p2.normal[1] * p1.constant - p1.normal[1] * p2.constant) / det;
+      line_O[1] = (-p2.normal[0] * p1.constant + p1.normal[0] * p2.constant) / det;
+      line_O[2] = 0.0;
+    }
+  else { //Planes are parallel
+      return false;
+    }
+*/
