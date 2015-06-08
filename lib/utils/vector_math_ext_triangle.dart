@@ -1,5 +1,6 @@
 part of rapid;
 
+//Compute plane containing [that]
 Plane Triangle_toPlane(Triangle that)
 {
   var v1 = that.point1 - that.point0;
@@ -39,7 +40,7 @@ bool Triangle_intersectsWithTriangleBasic(Triangle t1, Triangle t2) {
   rays.add(new Ray.originDirection(t1.point2, t1.point0 - t1.point2));
   rays.forEach((Ray r) {
     double d = r.intersectsWithTriangle(t2);
-    if (d != null && d > 0.0 && d < 1.0) {
+    if (d != null && d >= 0.0 && d < 1.0) {
       inter = true;
     }
   });
@@ -53,7 +54,7 @@ bool Triangle_intersectsWithTriangleBasic(Triangle t1, Triangle t2) {
   rays.add(new Ray.originDirection(t2.point2, t2.point0 - t2.point2));
   rays.forEach((Ray r) {
     double d = r.intersectsWithTriangle(t1);
-    if (d != null && d > -1.0 && d < 1.0)
+    if (d != null && d >= 0.0 && d < 1.0)
       inter = true;
   });
 
@@ -68,6 +69,8 @@ bool Triangle_intersectsWithTriangleBasic(Triangle t1, Triangle t2) {
   print("Distance p1[${p1.normal}][${p1.constant}] t2 point2[${t2.point2.toString()}] == ${d5}");
  */
 
+//Return if [that] intersects with [other]
+//Not working for coplanar triangles
 //From A fast triangle-triangle intersection test by Tomas Moller
 bool Triangle_intersectsWithTriangle(Triangle that, Triangle other)
 {
