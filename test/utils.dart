@@ -17,8 +17,8 @@ void trianglesIntersectionFail2() {
 }
 
 void trianglesIntersectionCase1() {
-  Triangle tri1 = new Triangle.points(new Vector3(-2.0, 0.0, 0.0), new Vector3(0.0, 0.0, 3.0), new Vector3(2.0, 0.0, 0.0));
-  Triangle tri2 = new Triangle.points(new Vector3(-1.0, -1.0, 1.0),  new Vector3(0.0, 1.0, 1.0), new Vector3(1.0, -1.0, 1.0));
+  Triangle tri1 = new Triangle.points(new Vector3(-1.0, 0.0, -1.0), new Vector3(-1.0, 0.0, 1.0), new Vector3(1.0, 0.0, 1.0));
+  Triangle tri2 = new Triangle.points(new Vector3(-1.0, -0.5, 0.5),  new Vector3(-1.0, 1.0, 0.5), new Vector3(1.0, -0.5, 0.5));
   expect(Triangle_intersectsWithTriangle(tri1, tri2), true);
 }
 
