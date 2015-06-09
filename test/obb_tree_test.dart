@@ -62,7 +62,7 @@ void testCubeSplitTris()
   tris.add(1); tris.add(2); tris.add(6); //Tri right face 1
   tris.add(2); tris.add(6); tris.add(7); //Tri right face 2
 
-  var tree = new ObbTree.fromTriangles(tris, points, 1);
+  var tree = new ObbTree.fromTriangles(tris, points, 2);
   var box = tree.rootBox;
   expect(box.center.x, isNot(0.0));
   expect(box.center.y, isNot(0.0));
