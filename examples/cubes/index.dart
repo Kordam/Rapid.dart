@@ -114,8 +114,6 @@ void addObject3D(points, tris) {
   mesh.geometry.colorsNeedUpdate = true;
   mesh.geometry.computeFaceNormals();
   mesh.geometry.computeCentroids();
-  mesh.geometry.computeBoundingSphere();
-  mesh.geometry.computeBoundingBox();
   mesh.geometry.computeVertexNormals();
 
   scene.add(mesh);
@@ -131,8 +129,9 @@ drawObbTreeNode(ObbTreeNode node) {
     return;
   }
 
-  var geometry = new CubeGeometry(1.0, 1.0, 1.0);
+  var geometry = new CubeGeometry(node.box.halfExtents[0] * 2.0, node.box.halfExtents[1] * 2.0, node.box.halfExtents[2] * 2.0);
   var material = new MeshBasicMaterial(color: 0x00ff00,
+  wireframe: true,
   blending: NormalBlending,
   side: DoubleSide,
   shading: FlatShading,
@@ -144,6 +143,10 @@ drawObbTreeNode(ObbTreeNode node) {
 
   var obj = new Mesh(geometry, material);
   obj.position = node.box.center;
+  obj.matrix.rotate(node.box.axis0, node.box.halfExtents[0]);
+  obj.matrix.rotate(node.box.axis1, node.box.halfExtents[1]);
+  obj.matrix.rotate(node.box.axis2, node.box.halfExtents[2]);
+  obj.updateMatrix();
   scene.add(obj);
 
 
