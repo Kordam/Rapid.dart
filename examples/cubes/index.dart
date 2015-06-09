@@ -36,7 +36,7 @@ void main() {
   tris.add(1); tris.add(2); tris.add(6); //Tri right face 1
   tris.add(2); tris.add(6); tris.add(7); //Tri right face 2
 
-  ObbCollider collider = new ObbCollider.fromTriangles(tris, points);
+  ObbCollider collider = new ObbCollider.fromTriangles(tris, points, split: 0);
 
   addObject3D(points, tris);
   addColliderElement(collider);

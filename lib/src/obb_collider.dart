@@ -9,9 +9,9 @@ class ObbCollider extends Collider
     _tree = null;
   }
 
-  ObbCollider.fromTriangles(List<int> tris, List<Vector3> vertices, {split: 1}): super(ColliderType.OBB)
+  ObbCollider.fromTriangles(List<int> tris, List<Vector3> vertices, {split: 4}): super(ColliderType.OBB)
   {
-    _tree = new ObbTree.fromTriangles(tris, vertices, 4);
+    _tree = new ObbTree.fromTriangles(tris, vertices, split);
   }
 
   //Getters and setters
