@@ -11,67 +11,6 @@ Plane Triangle_toPlane(Triangle that)
   return new Plane.normalconstant(normal, d);
 }
 
-bool Triangle_intersectsWithTriangleBasic(Triangle t1, Triangle t2) {
-
-  //Checking distance to planes
-  Plane p1 = Triangle_toPlane(t1);
-  Plane p2 = Triangle_toPlane(t2);
-  double d0 = p2.distanceToVector3(t1.point0);
-  double d1 = p2.distanceToVector3(t1.point1);
-  double d2 = p2.distanceToVector3(t1.point2);
-  double d3 = p1.distanceToVector3(t2.point0);
-  double d4 = p1.distanceToVector3(t2.point1);
-  double d5 = p1.distanceToVector3(t2.point2);
-  //Trivial reject if all points of t1 are on the same side of t2
-  if ((d0 > 0.0 && d1 > 0.0 && d2 > 0.0) || (d0 < 0.0 && d1 < 0.0 && d2 < 0.0)){
-    return false;
-  }
-  //Trivial reject if all points of t2 are on the same side of t1
-  if ((d3 > 0.0 && d4 > 0.0 && d5 > 0.0) || (d3 < 0.0 && d4 < 0.0 && d5 < 0.0)){
-    return false;
-  }
-  //Handle coplanar triangles
-  if (d0 == 0.0 && d1 == 0.0 && d2 == 0.0){
-    return Triangle_intersectsWithCoplanarTriangle(t1, t2);
-  }
-
-  //Test t1 edges intersection with t2
-  List rays = new List();
-  bool inter = false;
-  rays.add(new Ray.originDirection(t1.point0, t1.point1 - t1.point0));
-  rays.add(new Ray.originDirection(t1.point1, t1.point2 - t1.point1));
-  rays.add(new Ray.originDirection(t1.point2, t1.point0 - t1.point2));
-  rays.forEach((Ray r) {
-    double d = r.intersectsWithTriangle(t2);
-    if (d != null && d >= 0.0 && d < 1.0) {
-      inter = true;
-    }
-  });
-  if (inter == true)
-    return true;
-
-  //Test t2 edges intersection with t1
-  rays.clear();
-  rays.add(new Ray.originDirection(t2.point0, t2.point1 - t2.point0));
-  rays.add(new Ray.originDirection(t2.point1, t2.point2 - t2.point1));
-  rays.add(new Ray.originDirection(t2.point2, t2.point0 - t2.point2));
-  rays.forEach((Ray r) {
-    double d = r.intersectsWithTriangle(t1);
-    if (d != null && d >= 0.0 && d < 1.0)
-      inter = true;
-  });
-
-  return inter;
-}
-/*
-  print("Distance p2[${p2.normal}][${p2.constant}] t1 point0[${t1.point0.toString()}] == ${d0}");
-  print("Distance p2[${p2.normal}][${p2.constant}] t1 point1[${t1.point1.toString()}] == ${d1}");
-  print("Distance p2[${p2.normal}][${p2.constant}] t1 point2[${t1.point2.toString()}] == ${d2}");
-  print("Distance p1[${p1.normal}][${p1.constant}] t2 point0[${t2.point0.toString()}] == ${d3}");
-  print("Distance p1[${p1.normal}][${p1.constant}] t2 point1[${t2.point1.toString()}] == ${d4}");
-  print("Distance p1[${p1.normal}][${p1.constant}] t2 point2[${t2.point2.toString()}] == ${d5}");
- */
-
 //Return if [that] intersects with [other]
 //From A fast triangle-triangle intersection test by Tomas Moller
 bool Triangle_intersectsWithTriangle(Triangle that, Triangle other)
@@ -167,3 +106,68 @@ bool Triangle_Private_edgeIntersectsWithEdge(Vector2 p, Vector2 r, Vector2 q, Ve
   }
   return false;
 }
+
+
+
+//Return if [that] intersects with [other]
+//This is less efficient than intersectsWithTriangle
+bool Triangle_intersectsWithTriangleBasic(Triangle t1, Triangle t2) {
+
+  //Checking distance to planes
+  Plane p1 = Triangle_toPlane(t1);
+  Plane p2 = Triangle_toPlane(t2);
+  double d0 = p2.distanceToVector3(t1.point0);
+  double d1 = p2.distanceToVector3(t1.point1);
+  double d2 = p2.distanceToVector3(t1.point2);
+  double d3 = p1.distanceToVector3(t2.point0);
+  double d4 = p1.distanceToVector3(t2.point1);
+  double d5 = p1.distanceToVector3(t2.point2);
+  //Trivial reject if all points of t1 are on the same side of t2
+  if ((d0 > 0.0 && d1 > 0.0 && d2 > 0.0) || (d0 < 0.0 && d1 < 0.0 && d2 < 0.0)){
+    return false;
+  }
+  //Trivial reject if all points of t2 are on the same side of t1
+  if ((d3 > 0.0 && d4 > 0.0 && d5 > 0.0) || (d3 < 0.0 && d4 < 0.0 && d5 < 0.0)){
+    return false;
+  }
+  //Handle coplanar triangles
+  if (d0 == 0.0 && d1 == 0.0 && d2 == 0.0){
+    return Triangle_intersectsWithCoplanarTriangle(t1, t2);
+  }
+
+  //Test t1 edges intersection with t2
+  List rays = new List();
+  bool inter = false;
+  rays.add(new Ray.originDirection(t1.point0, t1.point1 - t1.point0));
+  rays.add(new Ray.originDirection(t1.point1, t1.point2 - t1.point1));
+  rays.add(new Ray.originDirection(t1.point2, t1.point0 - t1.point2));
+  rays.forEach((Ray r) {
+    double d = r.intersectsWithTriangle(t2);
+    if (d != null && d >= 0.0 && d < 1.0) {
+      inter = true;
+    }
+  });
+  if (inter == true)
+    return true;
+
+  //Test t2 edges intersection with t1
+  rays.clear();
+  rays.add(new Ray.originDirection(t2.point0, t2.point1 - t2.point0));
+  rays.add(new Ray.originDirection(t2.point1, t2.point2 - t2.point1));
+  rays.add(new Ray.originDirection(t2.point2, t2.point0 - t2.point2));
+  rays.forEach((Ray r) {
+    double d = r.intersectsWithTriangle(t1);
+    if (d != null && d >= 0.0 && d < 1.0)
+      inter = true;
+  });
+
+  return inter;
+}
+/*
+  print("Distance p2[${p2.normal}][${p2.constant}] t1 point0[${t1.point0.toString()}] == ${d0}");
+  print("Distance p2[${p2.normal}][${p2.constant}] t1 point1[${t1.point1.toString()}] == ${d1}");
+  print("Distance p2[${p2.normal}][${p2.constant}] t1 point2[${t1.point2.toString()}] == ${d2}");
+  print("Distance p1[${p1.normal}][${p1.constant}] t2 point0[${t2.point0.toString()}] == ${d3}");
+  print("Distance p1[${p1.normal}][${p1.constant}] t2 point1[${t2.point1.toString()}] == ${d4}");
+  print("Distance p1[${p1.normal}][${p1.constant}] t2 point2[${t2.point2.toString()}] == ${d5}");
+ */

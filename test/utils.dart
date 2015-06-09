@@ -37,13 +37,13 @@ void trianglesIntersectionCase3() {
 void trianglesIntersectionCoplanar() {
   Triangle tri1 = new Triangle.points(new Vector3(-1.5, 0.0, 0.0), new Vector3(0.0, 0.0, -1.25), new Vector3(1.5, 0.0, 0.0));
   Triangle tri2 = new Triangle.points(new Vector3(-0.5, 0.0, 0.0), new Vector3(1.0, 0.0, -1.25), new Vector3(2.5, 0.0, 0.0));
-  expect(Triangle_intersectsWithTriangleBasic(tri1, tri2), true);
+  expect(Triangle_intersectsWithTriangle(tri1, tri2), true);
 }
 
 void trianglesIntersectionCoplanarFail() {
   Triangle tri1 = new Triangle.points(new Vector3(-1.5, 0.0, 0.0), new Vector3(0.0, 0.0, -1.25), new Vector3(1.5, 0.0, 0.0));
   Triangle tri2 = new Triangle.points(new Vector3(2.5, 0.0, 0.0), new Vector3(3.0, 0.0, -1.25), new Vector3(4.5, 0.0, 0.0));
-  expect(Triangle_intersectsWithTriangleBasic(tri1, tri2), false);
+  expect(Triangle_intersectsWithTriangle(tri1, tri2), false);
 }
 
 
