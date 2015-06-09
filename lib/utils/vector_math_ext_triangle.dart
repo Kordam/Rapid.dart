@@ -43,7 +43,6 @@ bool Triangle_intersectsWithTriangleBasic(Triangle t1, Triangle t2) {
   rays.add(new Ray.originDirection(t1.point2, t1.point0 - t1.point2));
   rays.forEach((Ray r) {
     double d = r.intersectsWithTriangle(t2);
-    print("t1 edges to t2 dist=${d}");
     if (d != null && d >= 0.0 && d < 1.0) {
       inter = true;
     }
@@ -58,7 +57,6 @@ bool Triangle_intersectsWithTriangleBasic(Triangle t1, Triangle t2) {
   rays.add(new Ray.originDirection(t2.point2, t2.point0 - t2.point2));
   rays.forEach((Ray r) {
     double d = r.intersectsWithTriangle(t1);
-    print("t2 edges to t1 dist=${d}");
     if (d != null && d >= 0.0 && d < 1.0)
       inter = true;
   });
@@ -75,7 +73,6 @@ bool Triangle_intersectsWithTriangleBasic(Triangle t1, Triangle t2) {
  */
 
 //Return if [that] intersects with [other]
-//Not working for coplanar triangles
 //From A fast triangle-triangle intersection test by Tomas Moller
 bool Triangle_intersectsWithTriangle(Triangle that, Triangle other)
 {
