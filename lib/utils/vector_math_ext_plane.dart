@@ -31,30 +31,30 @@ bool Plane_separateTris(Plane p, List<Vector3> points, List<int> tris,
     var point = [ points[tris[i + 0]],
                   points[tris[i + 1]],
                   points[tris[i + 2]]];
-    var dist = p.distanceToVector3(point[0]) +
-               p.distanceToVector3(point[1]) +
-               p.distanceToVector3(point[2]);
-    if (dist >= 0.0) {
+    var d0 = p.distanceToVector3(point[0]);
+    var d1 = p.distanceToVector3(point[1]);
+    var d2 = p.distanceToVector3(point[2]);
+    if (d0 >= 0.0 && d1 >= 0.0 && d2 >= 0.0) {
       for (var j = 0; j < 3; j++)
       {
-        var idx = left_points.lastIndexOf(point[j]);
+        var idx = left_points.indexOf(point[j]);
         if (idx != -1)
           left_tris.add(idx);
         else {
           left_points.add(point[j]);
-          left_tris.add(left_points.lastIndexOf(point[j]));
+          left_tris.add(left_points.indexOf(point[j]));
         }
       }
     }
     else {
       for (var j = 0; j < 3; j++)
       {
-        var idx = right_points.lastIndexOf(point[j]);
+        var idx = right_points.indexOf(point[j]);
         if (idx != -1)
           right_tris.add(idx);
         else {
           right_points.add(point[j]);
-          right_tris.add(left_points.lastIndexOf(point[j]));
+          right_tris.add(right_points.indexOf(point[j]));
         }
       }
     }
