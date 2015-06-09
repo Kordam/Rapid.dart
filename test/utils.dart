@@ -34,6 +34,18 @@ void trianglesIntersectionCase3() {
   expect(Triangle_intersectsWithTriangle(tri1, tri2), true);
 }
 
+void trianglesIntersectionCoplanar() {
+  Triangle tri1 = new Triangle.points(new Vector3(-1.5, 0.0, 0.0), new Vector3(0.0, 0.0, -1.25), new Vector3(1.5, 0.0, 0.0));
+  Triangle tri2 = new Triangle.points(new Vector3(-0.5, 0.0, 0.0), new Vector3(1.0, 0.0, -1.25), new Vector3(2.5, 0.0, 0.0));
+  expect(Triangle_intersectsWithTriangleBasic(tri1, tri2), true);
+}
+
+void trianglesIntersectionCoplanarFail() {
+  Triangle tri1 = new Triangle.points(new Vector3(-1.5, 0.0, 0.0), new Vector3(0.0, 0.0, -1.25), new Vector3(1.5, 0.0, 0.0));
+  Triangle tri2 = new Triangle.points(new Vector3(2.5, 0.0, 0.0), new Vector3(3.0, 0.0, -1.25), new Vector3(4.5, 0.0, 0.0));
+  expect(Triangle_intersectsWithTriangleBasic(tri1, tri2), false);
+}
+
 
 void main()
 {
@@ -43,7 +55,8 @@ void main()
     test("Triangles intersections case1", trianglesIntersectionCase1);
     test("Triangles intersections case2", trianglesIntersectionCase2);
     test("Triangles intersections case3", trianglesIntersectionCase3);
-    //test("Triangles intersections coplanar", trianglesintersectioncoplanar);
+    test("Triangles intersections coplanar", trianglesIntersectionCoplanar);
+    test("Triangles intersections coplanar fail", trianglesIntersectionCoplanarFail);
     //test("Triangles are coplanar", trianglesAreCoplanar);
   });
 }
