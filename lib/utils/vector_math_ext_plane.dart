@@ -27,8 +27,9 @@ bool Plane_separateTris(Plane p, List<Vector3> points, List<int> tris,
   if (points.length == 0 || tris.length == 0)
     return false;
 
+  //Iterate over triangles [tris]
   for (var i = 0; i < tris.length; i += 3) {
-    var point = [ points[tris[i + 0]],
+    var point = [ points[tris[i + 0]], //p1, p2, p3
                   points[tris[i + 1]],
                   points[tris[i + 2]]];
     var n_left = 0;
@@ -45,6 +46,7 @@ bool Plane_separateTris(Plane p, List<Vector3> points, List<int> tris,
 
     //Most of the points are left
     if (n_left >= 2) {
+      //push points left
       for (var j = 0; j < 3; j++)
       {
         var idx = left_points.indexOf(point[j]);
@@ -57,6 +59,7 @@ bool Plane_separateTris(Plane p, List<Vector3> points, List<int> tris,
       }
     }
     else { // Most of the points are right
+      //push point right
       for (var j = 0; j < 3; j++)
       {
         var idx = right_points.indexOf(point[j]);
