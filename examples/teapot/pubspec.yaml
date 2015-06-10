@@ -1,7 +1,0 @@
-name: testrapid
-author: Stéphane Seguin <stephseguin93@gmail.com>
-dependencies:
-  rapid:
-    git: https://github.com/Kordam/Rapid.dart
-  three:
-    git: ssh://git@gitlab.kordam.fr:2222/kordam/three.git

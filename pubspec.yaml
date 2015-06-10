@@ -9,3 +9,5 @@ dependencies:
   browser: any
 dev_dependencies:
   unittest: any
+  three:
+      git: ssh://git@gitlab.kordam.fr:2222/kordam/three.git

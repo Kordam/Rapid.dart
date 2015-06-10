@@ -15,16 +15,26 @@ void main() {
   initWebGL();
 
   //Use a teapot
-  var loader = new OBJLoader();
-  loader.load("./teapot.obj").then((Object3D obj) {
+  var loader = new JSONLoader();
+  loader.load("./teapot.json", (Geometry obj) {
 
     //Getting points & tris from obj
     var points = new List<Vector3>();
     var tris = new List<int>();
-    points.addAll(obj.geometry.vertices);
-    obj.geometry.faces3.forEach((Face f) {
+    print("No geometry here ! ${obj}");
+    points.addAll(obj.vertices);
+    obj.faces.forEach((Face f) {
       tris.addAll(f.indices);
     });
+
+/*    obj.children.forEach((Object3D o3d) {
+      points.addAll(o3d.geometry.vertices);
+      o3d.geometry.faces3.forEach((Face f) {
+        tris.addAll(f.indices);
+      });
+
+    });
+    */
 
     ObbCollider collider = new ObbCollider.fromTriangles(tris, points, split: 2);
 
