@@ -16,8 +16,7 @@ void main() {
 
   //Use a teapot
   var loader = new OBJLoader();
-  loader.load("./teapot.obj");
-  loader.then((obj) {
+  loader.load("./teapot.obj").then((obj) {
 
     var points = new List<Vector3>();
     var tris = new List<int>();
