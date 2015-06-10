@@ -11,7 +11,7 @@ List<Vector3> Obb3_sortAxis(Obb3 obb)
   res.add(obb.axis1);
   res.add(obb.axis2);
   res.sort((a, b) {
-   Vector3.max(a, b, cmp);
+   Vector3.min(a, b, cmp);
     if (cmp == a)
       return -1;
     return 1;
@@ -106,7 +106,7 @@ Obb3 Obb3_fitFromTriangles(List<int> indices, List<Vector3> points, {Vector3 mea
     Vector3 q = points[indices[i+1]];
     Vector3 r = points[indices[i+2]];
     mui = (p+q+r)/3.0;
-    Ai = (q-p).cross(r-p).normalizeLength() / 2.0;
+    Ai = (q-p).cross(r-p).normalize().length / 2.0;
     mu += mui*Ai;
     Am += Ai;
 

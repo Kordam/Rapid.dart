@@ -31,10 +31,20 @@ bool Plane_separateTris(Plane p, List<Vector3> points, List<int> tris,
     var point = [ points[tris[i + 0]],
                   points[tris[i + 1]],
                   points[tris[i + 2]]];
+    var n_left = 0;
+
+    //Compute distance to plane
     var d0 = p.distanceToVector3(point[0]);
     var d1 = p.distanceToVector3(point[1]);
     var d2 = p.distanceToVector3(point[2]);
-    if (d0 >= 0.0 && d1 >= 0.0 && d2 >= 0.0) {
+
+    //Count nb points on the left side of the plane
+    d0 >= 0.0 ? n_left += 1 : n_left += 0;
+    d1 >= 0.0 ? n_left += 1 : n_left += 0;
+    d2 >= 0.0 ? n_left += 1 : n_left += 0;
+
+    //Most of the points are left
+    if (n_left >= 2) {
       for (var j = 0; j < 3; j++)
       {
         var idx = left_points.indexOf(point[j]);
@@ -46,7 +56,7 @@ bool Plane_separateTris(Plane p, List<Vector3> points, List<int> tris,
         }
       }
     }
-    else {
+    else { // Most of the points are right
       for (var j = 0; j < 3; j++)
       {
         var idx = right_points.indexOf(point[j]);

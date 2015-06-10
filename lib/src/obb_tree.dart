@@ -36,6 +36,7 @@ class ObbTree
 
     _leaf = new List();
     _root = new ObbTreeNode(box, points, tris, m, depth: 0, leaf: true);
+    print("root node has ${points.length} points");
     if (divide >= 1) {
       _splitTriangles(_root, 1, divide);
       _root.leaf = false;
@@ -50,7 +51,7 @@ class ObbTree
   void _splitTriangles(ObbTreeNode parent, int currentDepth, int maxDepth)
   {
     var p = Obb3_splitPlane(parent.box, parent.box.center);
-    print("Triangles split Depth ${currentDepth} Centroid ${parent.centroid.toString()} Plane normal ${p.normal}}");
+    print("Triangles split Depth ${currentDepth} Centroid ${parent.centroid.toString()} Plane ${p.normal}[${p.constant}]}");
 
     //Sort tris and points
     List<int> left_tris = new List<int>();
@@ -62,7 +63,7 @@ class ObbTree
     //Allocate Left part
     ObbTreeNode left = null;
     if (left_points.length > 0) {
-      print("Depth ${currentDepth} has ${left_points.length} left tris");
+      print("Depth ${currentDepth} has ${left_points.length} left points");
       Vector3 left_mean = new Vector3.zero();
       Obb3 left_box = Obb3_fitFromTriangles(left_tris, left_points, mean: left_mean);
       left = new ObbTreeNode(left_box, left_points, left_tris, left_mean, depth: currentDepth);
@@ -71,7 +72,7 @@ class ObbTree
     //Allocate right part
     ObbTreeNode right = null;
     if (right_points.length > 0) {
-      print("Depth ${currentDepth} has ${right_points.length} right tris");
+      print("Depth ${currentDepth} has ${right_points.length} right points");
       Vector3 right_mean = new Vector3.zero();
       Obb3 right_box = Obb3_fitFromTriangles(right_tris, right_points, mean: right_mean);
       right = new ObbTreeNode(right_box, right_points, right_tris, right_mean, depth: currentDepth);
