@@ -61,8 +61,9 @@ class ObbTree
   //by filling the left an right child nodes
   void _splitTriangles(ObbTreeNode parent, int currentDepth, int maxDepth)
   {
+    print("parent node has ${parent.points.length} points");
     var p = Obb3_splitPlane(parent.box, parent.box.center);
-    print("Triangles split Depth ${currentDepth} Centroid ${parent.centroid.toString()} Plane ${p.normal}[${p.constant}]}");
+    print("Triangles split Depth ${currentDepth} center ${parent.box.center.toString()} Plane ${p.normal}[${p.constant}]}");
 
     //Sort tris and points
     List<int> left_tris = new List<int>();
