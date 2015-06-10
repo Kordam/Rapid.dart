@@ -30,11 +30,19 @@ class ObbTree
   List<ObbTreeNode> _leaf;
 
   //Construct on ObbTree from a list of [tris] indexes in [points] list
+  //If no [tris], this is an empty 1.0/1.0/1.0 box at 0.0/0.0/0.0
   ObbTree.fromTriangles(List<int> tris, List<Vector3> points, int divide) {
     Vector m = new Vector3.zero();
+    _leaf = new List();
+
+    //Empty tris
+    if (tris.length == 0) {
+      var box = new Obb3();
+      _root = new ObbTreeNode(box, null, null, m, depth: 0, leaf: true);
+      return;
+    }
     Obb3 box = Obb3_fitFromTriangles(tris, points, mean: m);
 
-    _leaf = new List();
     _root = new ObbTreeNode(box, points, tris, m, depth: 0, leaf: true);
     print("root node has ${points.length} points");
     if (divide >= 1) {
