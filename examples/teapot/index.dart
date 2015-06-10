@@ -16,10 +16,15 @@ void main() {
 
   //Use a teapot
   var loader = new OBJLoader();
-  loader.load("./teapot.obj").then((obj) {
+  loader.load("./teapot.obj").then((Object3D obj) {
 
+    //Getting points & tris from obj
     var points = new List<Vector3>();
     var tris = new List<int>();
+    points.addAll(obj.geometry.vertices);
+    obj.geometry.faces3.forEach((Face f) {
+      tris.addAll(f.indices);
+    });
 
     ObbCollider collider = new ObbCollider.fromTriangles(tris, points, split: 2);
 

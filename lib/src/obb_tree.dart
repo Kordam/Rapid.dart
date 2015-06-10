@@ -38,6 +38,9 @@ class ObbTree
     //Empty tris
     if (tris.length == 0) {
       var box = new Obb3();
+      box.halfExtents.x = 1.0;
+      box.halfExtents.y = 1.0;
+      box.halfExtents.z = 1.0;
       _root = new ObbTreeNode(box, null, null, m, depth: 0, leaf: true);
       return;
     }
