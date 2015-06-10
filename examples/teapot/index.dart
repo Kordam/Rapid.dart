@@ -38,7 +38,7 @@ void main() {
       });
     }
 
-    ObbCollider collider = new ObbCollider.fromTriangles(tris, points, split: 1);
+    ObbCollider collider = new ObbCollider.fromTriangles(tris, points, split: 3);
 
     addObject3D(points, tris);
     addColliderElement(collider);
@@ -135,9 +135,9 @@ drawObbTreeNode(ObbTreeNode node) {
     return;
   }
 
-  Matrix3 rot_mat = new Matrix3(node.box.axis0[0], node.box.axis0[1], node.box.axis0[2],
-                                node.box.axis1[0], node.box.axis1[1], node.box.axis1[2],
-                                node.box.axis2[0], node.box.axis2[1], node.box.axis2[2]);
+  Matrix3 rot_mat = new Matrix3(node.box.axis0[0], node.box.axis1[0], node.box.axis2[0],
+                                node.box.axis0[1], node.box.axis1[1], node.box.axis2[1],
+                                node.box.axis0[2], node.box.axis1[2], node.box.axis2[2]);
   Vector3 diag = rot_mat.absoluteRotate(node.box.halfExtents.clone());
   var geometry = new CubeGeometry(diag[0] * 2.0, diag[1] * 2.0, diag[2] * 2.0);
   //var geometry = new CubeGeometry(node.box.halfExtents[0] * 2.0, node.box.halfExtents[1] * 2.0, node.box.halfExtents[2] * 2.0);
