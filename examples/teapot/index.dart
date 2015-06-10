@@ -38,7 +38,7 @@ void main() {
       });
     }
 
-    ObbCollider collider = new ObbCollider.fromTriangles(tris, points, split: 2);
+    ObbCollider collider = new ObbCollider.fromTriangles(tris, points, split: 1);
 
     addObject3D(points, tris);
     addColliderElement(collider);
@@ -124,7 +124,10 @@ void addObject3D(points, tris) {
 
 addColliderElement(ObbCollider collider) {
   ObbTree rootTree = collider.tree;
-  drawObbTreeNode(rootTree.root);
+  rootTree.leaves.forEach((l) {
+    drawObbTreeNode(l);
+  });
+ // drawObbTreeNode(rootTree.root);
 }
 
 drawObbTreeNode(ObbTreeNode node) {
@@ -132,7 +135,12 @@ drawObbTreeNode(ObbTreeNode node) {
     return;
   }
 
-  var geometry = new CubeGeometry(node.box.halfExtents[0] * 2.0, node.box.halfExtents[1] * 2.0, node.box.halfExtents[2] * 2.0);
+  Matrix3 rot_mat = new Matrix3(node.box.axis0[0], node.box.axis0[1], node.box.axis0[2],
+                                node.box.axis1[0], node.box.axis1[1], node.box.axis1[2],
+                                node.box.axis2[0], node.box.axis2[1], node.box.axis2[2]);
+  Vector3 diag = rot_mat.absoluteRotate(node.box.halfExtents.clone());
+  var geometry = new CubeGeometry(diag[0] * 2.0, diag[1] * 2.0, diag[2] * 2.0);
+  //var geometry = new CubeGeometry(node.box.halfExtents[0] * 2.0, node.box.halfExtents[1] * 2.0, node.box.halfExtents[2] * 2.0);
   var material = new MeshBasicMaterial(color: 0x00ff00,
   wireframe: true,
   blending: NormalBlending,
@@ -146,9 +154,12 @@ drawObbTreeNode(ObbTreeNode node) {
 
   var obj = new Mesh(geometry, material);
   obj.position = node.box.center;
+  obj.matrix.setRotation(rot_mat);
+  /*
   obj.matrix.rotate(node.box.axis0, node.box.halfExtents[0]);
   obj.matrix.rotate(node.box.axis1, node.box.halfExtents[1]);
   obj.matrix.rotate(node.box.axis2, node.box.halfExtents[2]);
+  */
   obj.updateMatrix();
   scene.add(obj);
 
