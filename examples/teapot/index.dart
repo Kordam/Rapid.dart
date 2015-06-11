@@ -15,7 +15,7 @@ void main() {
   initWebGL();
 
   //Use a teapot
-  var loader = new OBJLoader();// new JSONLoader();
+  var loader = new OBJLoader(useMtl: false);// new JSONLoader();
   loader.load("./teapot.obj").then((Object3D obj) {
     //Getting points & tris from obj
     var points = new List<Vector3>();
@@ -25,6 +25,7 @@ void main() {
       points.addAll(obj.geometry.vertices);
       obj.geometry.faces.forEach((Face f) {
         tris.addAll(f.indices);
+        print(f.indices);
       });
     }
     if (obj.children != null) {
@@ -38,7 +39,7 @@ void main() {
       });
     }
 
-    ObbCollider collider = new ObbCollider.fromTriangles(tris, points, split: 3);
+    ObbCollider collider = new ObbCollider.fromTriangles(tris, points, split: 5);
 
     addObject3D(points, tris);
     addColliderElement(collider);
@@ -61,6 +62,7 @@ void initWebGL() {
   controls = new TrackballControls(camera);
 
   renderer = new WebGLRenderer();
+  renderer.setClearColorHex(0x000000, 1);
   renderer.setSize(window.innerWidth, window.innerHeight);
   container.nodes.add(renderer.domElement);
   window.onResize.listen(onWindowResize);
@@ -125,7 +127,7 @@ void addObject3D(points, tris) {
 addColliderElement(ObbCollider collider) {
   ObbTree rootTree = collider.tree;
   rootTree.leaves.forEach((l) {
-    drawObbTreeNode(l);
+   drawObbTreeNode(l);
   });
  // drawObbTreeNode(rootTree.root);
 }

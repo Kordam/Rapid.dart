@@ -35,10 +35,9 @@ bool Plane_separateTris(Plane p, List<Vector3> points, List<int> tris,
     var n_left = 0;
 
     //Compute distance to plane
-    var d0 = p.distanceToVector3(point[0]);
-    var d1 = p.distanceToVector3(point[1]);
-    var d2 = p.distanceToVector3(point[2]);
-
+    double d0 = p.distanceToVector3(point[0]);
+    double d1 = p.distanceToVector3(point[1]);
+    double d2 = p.distanceToVector3(point[2]);
     //Count nb points on the left side of the plane
     d0 >= 0.0 ? n_left += 1 : n_left += 0;
     d1 >= 0.0 ? n_left += 1 : n_left += 0;
@@ -46,6 +45,7 @@ bool Plane_separateTris(Plane p, List<Vector3> points, List<int> tris,
 
     //Most of the points are left
     if (n_left >= 2) {
+     // print("Face left [${tris[i]}][${tris[i + 1]}][${tris[i + 2]}], distances [${d0}][${d1}[${d2}]");
       //push points left
       for (var j = 0; j < 3; j++)
       {
@@ -53,6 +53,7 @@ bool Plane_separateTris(Plane p, List<Vector3> points, List<int> tris,
         if (idx != -1)
           left_tris.add(idx);
         else {
+          //print("With insert ${tris[i + j]}");
           left_points.add(point[j]);
           left_tris.add(left_points.indexOf(point[j]));
         }
@@ -60,18 +61,21 @@ bool Plane_separateTris(Plane p, List<Vector3> points, List<int> tris,
     }
     else { // Most of the points are right
       //push point right
+    //  print("Face right [${tris[i]}][${tris[i + 1]}][${tris[i + 2]}], distances [${d0}][${d1}[${d2}]");
       for (var j = 0; j < 3; j++)
       {
         var idx = right_points.indexOf(point[j]);
         if (idx != -1)
           right_tris.add(idx);
         else {
+          //print("With insert ${tris[i + j]}");
           right_points.add(point[j]);
           right_tris.add(right_points.indexOf(point[j]));
         }
       }
     }
   }
+  print("Total ${right_points.length + left_points.length}}");
   return true;
 }
 

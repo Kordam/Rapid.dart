@@ -26,21 +26,22 @@ List<Vector3> Obb3_sortAxis(Obb3 obb)
 Plane Obb3_splitPlane(Obb3 box, Vector3 point)
 {
   var li = Obb3_sortAxis(box);
-  var axis = null;
+  Vector3 axis = null;
   //Chose the first axis that works
-  if (li[0].normalized().dot(point.normalized()) != 0.0) {
+  if (li[0].dot(point) != 0.0) {
     axis = li[0];
   }
-  else if (li[1].normalized().dot(point.normalized()) != 0.0) {
+  else if (li[1].dot(point) != 0.0) {
     axis = li[1];
   }
-  else if (li[2].normalized().dot(point.normalized()) != 0.0) {
+  else if (li[2].dot(point) != 0.0) {
     axis = li[2];
   }
   else {
       throw new SplitBoxException("No axis found to split at ${point.toString()}");
   }
 
+  axis.normalize();
   var d = - (axis[0] * point[0] + axis[1] * point[1] + axis[2] * point[2]);
   var p = new Plane.normalconstant(axis, d);
   return p;

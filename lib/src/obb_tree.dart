@@ -38,10 +38,11 @@ class ObbTree
     //Empty tris
     if (tris.length == 0) {
       var box = new Obb3();
-      box.halfExtents.x = 1.0;
-      box.halfExtents.y = 1.0;
-      box.halfExtents.z = 1.0;
+      box.halfExtents.x = 0.0;
+      box.halfExtents.y = 0.0;
+      box.halfExtents.z = 0.0;
       _root = new ObbTreeNode(box, null, null, m, depth: 0, leaf: true);
+      _leaf.add(_root);
       return;
     }
     Obb3 box = Obb3_fitFromTriangles(tris, points, mean: m);
@@ -53,6 +54,10 @@ class ObbTree
       _root.leaf = false;
       _root.points = null;  //Clear points after subdivision
       _root.tris = null;  //Clear tris after subdivision
+    }
+    else {
+      _root.leaf = true;
+      _leaf.add(_root);
     }
   }
 
@@ -93,6 +98,11 @@ class ObbTree
     //Assign parent node left & right
     parent.left = left;
     parent.right = right;
+    if (left == null && right == null) {
+      parent.leaf = true;
+      _leaf.add(parent);
+      return;
+    }
 
     currentDepth++;
     if (currentDepth > maxDepth) {
@@ -109,11 +119,9 @@ class ObbTree
     else {
       if (left != null) {
         _splitTriangles(parent.left, currentDepth, maxDepth);
-        parent.left.points = null; //Clear points after subdivision
       }
       if (right != null) {
         _splitTriangles(parent.right, currentDepth, maxDepth);
-        parent.right.points = null; //Clear points after subdivision
       }
     }
   }
