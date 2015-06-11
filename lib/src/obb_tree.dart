@@ -48,7 +48,7 @@ class ObbTree
     Obb3 box = Obb3_fitFromTriangles(tris, points, mean: m);
 
     _root = new ObbTreeNode(box, points, tris, m, depth: 0, leaf: true);
-    print("root node has ${points.length} points");
+    print("root node has ${tris.length} tris");
     if (divide >= 1) {
       _splitTriangles(_root, 1, divide);
       _root.leaf = false;
@@ -66,7 +66,7 @@ class ObbTree
   //by filling the left an right child nodes
   void _splitTriangles(ObbTreeNode parent, int currentDepth, int maxDepth)
   {
-    print("parent node has ${parent.points.length} points");
+    print("parent node has ${parent.tris.length} tris");
     var p = Obb3_splitPlane(parent.box, parent.box.center);
     print("Triangles split Depth ${currentDepth} center ${parent.box.center.toString()} Plane ${p.normal}[${p.constant}]}");
 

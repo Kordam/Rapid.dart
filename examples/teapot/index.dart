@@ -126,10 +126,11 @@ void addObject3D(points, tris) {
 
 addColliderElement(ObbCollider collider) {
   ObbTree rootTree = collider.tree;
+ // /*
   rootTree.leaves.forEach((l) {
    drawObbTreeNode(l);
-  });
- // drawObbTreeNode(rootTree.root);
+  }); // */
+ //drawObbTreeNode(rootTree.root);
 }
 
 drawObbTreeNode(ObbTreeNode node) {

@@ -75,7 +75,7 @@ bool Plane_separateTris(Plane p, List<Vector3> points, List<int> tris,
       }
     }
   }
-  print("Total ${right_points.length + left_points.length}}");
+  print("Total ${left_tris.length + right_tris.length}}");
   return true;
 }
 
