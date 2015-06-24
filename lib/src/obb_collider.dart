@@ -32,21 +32,44 @@ class ObbCollider extends Collider
   //If so, Lists of colliding [points] and faces [idx] can be filled
   bool collideWithObb(ObbCollider oth, {List<int> idx: null, List<Vector3> points: null})
   {
+    var li = idx;
+    var p= points;
+
     //Perform larger Obb test
     if (_tree.rootBox.intersectsWithObb3(oth._tree.rootBox) == false)
       return false;
+    //Allocate lists if not given
+    if (li == null) {
+      li = new List();
+    }
+    if (p == null) {
+      p = new List();
+    }
+    //Perform recursive test from root nodes
+    return _collideWithObb(_tree.root, oth._tree.root, li, p);
+  }
 
-
-    _tree.leaves.forEach((l) {
-      if (l.box.intersectsWithObb3(oth._tree.rootBox)) {
-        var idx_li = new List<int>();
-        var point_li = new List<Vector3>();
-        _findObbContactPoints(oth._tree.root, l, idx_li, point_li);
+  //Perform a recursive collision test between nodes
+  bool _collideWithObb(ObbTreeNode a, ObbTreeNode b, List<int> idx, List<Vector3> points) {
+    if (a == null || b == null) {
+      return false;
+    }
+    if (a.leaf && b.leaf) {
+      return a.getTriangleCollision(b, idx, points);
+    }
+    if (a.box.intersectsWithObb3(b.box)) {
+      var res = false;
+      if (a.depth <= b.depth) {
+        res = _collideWithObb(a.left, b, idx, points) || _collideWithObb(a.right, b, idx, points);
       }
-    });
-
+      else {
+        res = _collideWithObb(a, b.left, idx, points) || _collideWithObb(a, b.right, idx, points);
+      }
+      return res;
+    }
     return false;
   }
+
 
   bool _findObbContactPoints(ObbTreeNode root, ObbTreeNode node, List<int> idx, List<Vector3> points) {
     //Recurse to leave that intersect

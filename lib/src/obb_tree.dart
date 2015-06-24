@@ -21,6 +21,26 @@ class ObbTreeNode
   bool intersectWith(ObbTreeNode oth) {
     return box.intersectsWithObb3(oth.box);
   }
+
+  bool getTriangleCollision(ObbTreeNode oth, List<int> idx, List<Vector3> vertices) {
+    bool res = false;
+    if (box.intersectsWithObb3(oth.box) == false) {
+      return false;
+    }
+    for (int i = 0; i < tris.length; i += 3) {
+      Triangle t1 = new Triangle.points(points[tris[i]], points[tris[i + 1]], points[tris[i + 2]]);
+      for (int j = 0; j < oth.tris.length; j += 3) {
+        Triangle t2 = new Triangle.points(oth.points[oth.tris[j]], oth.points[oth.tris[j + 1]], oth.points[oth.tris[j + 2]]);
+        if (Triangle_intersectsWithTriangle(t1, t2)) {
+          idx.add(i); vertices.add(t1.point0);
+          idx.add(i + 1); vertices.add(t1.point1);
+          idx.add(i + 2); vertices.add(t1.point2);
+          res = true;
+        }
+      }
+    }
+    return res;
+  }
 }
 
 //Define an oriented bounding box tree data structure
