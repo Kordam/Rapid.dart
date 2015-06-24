@@ -10,12 +10,12 @@ class Body
 
   //Moves a body of [delta] in model space
   void translate(Vector3 delta) {
-
+    _bounds.translate(delta);
   }
 
   //Rotate a body by the givens euler [angles] in degree
   void rotate(Vector3 angles) {
-
+    _bounds.rotate(angles[0], angles[1], angles[2]);
   }
 
   get pos => _bounds.center;

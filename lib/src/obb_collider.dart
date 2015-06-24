@@ -14,6 +14,15 @@ class ObbCollider extends Collider
     _tree = new ObbTree.fromTriangles(tris, vertices, split);
   }
 
+
+  void translate(Vector3 vec) {
+    _tree.translate(vec);
+  }
+
+  void rotate(double x, double y, double z) {
+    _tree.rotate(x, y, z);
+  }
+
   //Getters and setters
   get center => _tree.root.centroid;
   get tree => _tree;

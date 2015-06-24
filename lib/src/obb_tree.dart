@@ -61,6 +61,41 @@ class ObbTree
     }
   }
 
+  //Update translation cache
+  void translate(Vector3 vec) {
+    _translate(vec, _root);
+  }
+
+  //Recursive translation update caching
+  void _translate(Vector3 vec, ObbTreeNode node) {
+    if (node == null) {
+      return;
+    }
+    node.box.translate(vec);
+    _translate(vec, node.left);
+    _translate(vec, node.right);
+  }
+
+  //Update rotation caching
+  // from euler angles
+  void rotate(double x, double y, double z) {
+    Matrix3 mat = new Matrix3.zero();
+    mat.setRotationX(x);
+    mat.setRotationY(y);
+    mat.setRotationZ(z);
+    _rotate(mat, _root);
+  }
+
+  //Recursive rotation update caching
+  void _rotate(Matrix3 mat, ObbTreeNode node) {
+    if (node == null) {
+      return;
+    }
+    node.box.rotate(mat);
+    _rotate(mat, node.left);
+    _rotate(mat, node.right);
+  }
+
   //Recursive method that splits the [parent] node
   //on the longest axis of [node]
   //by filling the left an right child nodes

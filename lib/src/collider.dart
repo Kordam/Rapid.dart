@@ -6,11 +6,9 @@ enum ColliderType  { OBB, ABB, SPHERE }
 //Defines an abstract collider class
 abstract class Collider
 {
-  Matrix4      _model;
   ColliderType _type;
 
   Collider(this._type) {
-    _model = new Matrix4.zero().setIdentity();
   }
 
   get type => _type;
@@ -21,15 +19,10 @@ abstract class Collider
 
   //Model space control interface
   //Translate this collider by [vec]
-  void   translate(Vector3 vec)  {
-    _model.translate(vec);
-  }
+  void   translate(Vector3 vec);
+
   //Rotate from euler angles
-  void   rotate(double x, double y, double z) {
-    _model.rotateX(x);
-    _model.rotateY(y);
-    _model.rotateZ(z);
-  }
+  void   rotate(double x, double y, double z);
 
   //Collision interface to define in inherited class
   bool collideWithObb(ObbCollider oth, {List<int> idx: null, List<Vector3> points: null});
