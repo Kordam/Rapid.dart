@@ -40,9 +40,7 @@ void main() {
     }
 
     ObbCollider collider = new ObbCollider.fromTriangles(tris, points, split: 5);
-
     addObject3D(points, tris);
-    addColliderElement(collider);
 
     animate(0);
   });
