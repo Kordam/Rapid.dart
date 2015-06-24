@@ -70,6 +70,7 @@ class World
       // Avoid spiral of death and clamp dt, thus clamping
       // how many times the UpdatePhysics can be called in
       // a single game loop.
+
       if (accumulator > 0.2) {
         accumulator = 0.2;
       }
@@ -79,9 +80,6 @@ class World
         update(dt);
         accumulator -= dt;
       }
-
-      const double alpha = accumulator / dt;
-
     }
   }
 
