@@ -55,7 +55,7 @@ void initWebGL() {
   scene = new Scene();
 
   camera = new PerspectiveCamera(70.0, window.innerWidth / window.innerHeight, 1.0, 1000.0);
-  camera.position.z = 50.0;
+  camera.position.z = 25.0;
 
   scene.add(camera);
 
