@@ -45,13 +45,53 @@ class World
     update(delta);
   }
 
+  //Runs the simulation at 60 fps
+  void run60() {
+    const double fps = 60.0;
+    const double dt = 1 / fps;
+    double accumulator = 0.0;
+    // In units seconds
+    DateTime frameStart = new DateTime.now();
+
+    // main loop
+    while (true) {
+      DateTime currentTime = new DateTime.now();
+      //const double currentTime = GetCurrentTime();
+
+      // Store the time elapsed since the last frame began
+      accumulator += currentTime.compareTo(frameStart);
+
+      //Debug dart time instead of doubles
+      print(accumulator);
+
+      // Record the starting of this frame
+      frameStart = currentTime;
+
+      // Avoid spiral of death and clamp dt, thus clamping
+      // how many times the UpdatePhysics can be called in
+      // a single game loop.
+      if (accumulator > 0.2) {
+        accumulator = 0.2;
+      }
+
+
+      while (accumulator > dt) {
+        update(dt);
+        accumulator -= dt;
+      }
+
+      const double alpha = accumulator / dt;
+
+    }
+  }
+
   //Update the simulation by [delta] milliseconds
   //Should take approximately O(n * log2(n))
   void update(double delta)
   {
     //For each obj in space
     //Remove obj from space
-    //While obj timestamp + delta not meet
+        //While obj timestamp + delta not meet
       //Update obj pos until next collisions
         //Compute collision reaction
         //Update collision obj to time
