@@ -8,8 +8,7 @@ PerspectiveCamera camera;
 Scene scene;
 WebGLRenderer renderer;
 TrackballControls controls;
-
-Mesh mesh;
+World world = new World.empty();
 
 void main() {
   initWebGL();
@@ -40,7 +39,8 @@ void main() {
     }
 
     ObbCollider collider = new ObbCollider.fromTriangles(tris, points, split: 5);
-    addObject3D(points, tris);
+    Mesh m = createMesh(points, tris);
+    scene.add(m);
 
     animate(0);
   });
@@ -79,7 +79,7 @@ void animate(num time) {
   renderer.render(scene, camera);
 }
 
-void addObject3D(points, tris) {
+Mesh createMesh(points, tris) {
   var geometry = new Geometry();
   var material = new MeshBasicMaterial(color: 0xff0000,
   blending: NormalBlending,
@@ -92,7 +92,7 @@ void addObject3D(points, tris) {
   wireframe: true,
   fog: false);
 
-  mesh = new Mesh(geometry, material);
+  Mesh mesh = new Mesh(geometry, material);
 
   mesh.geometry.vertices = new List<Vector3>();
   mesh.geometry.faces = new List<Face3>();
@@ -119,52 +119,5 @@ void addObject3D(points, tris) {
   mesh.geometry.computeCentroids();
   mesh.geometry.computeVertexNormals();
 
-  scene.add(mesh);
-}
-
-addColliderElement(ObbCollider collider) {
-  ObbTree rootTree = collider.tree;
- // /*
-  rootTree.leaves.forEach((l) {
-   drawObbTreeNode(l);
-  }); // */
- //drawObbTreeNode(rootTree.root);
-}
-
-drawObbTreeNode(ObbTreeNode node) {
-  if (node == null) {
-    return;
-  }
-
-  Matrix3 rot_mat = new Matrix3(node.box.axis0[0], node.box.axis1[0], node.box.axis2[0],
-                                node.box.axis0[1], node.box.axis1[1], node.box.axis2[1],
-                                node.box.axis0[2], node.box.axis1[2], node.box.axis2[2]);
-  Vector3 diag = rot_mat.absoluteRotate(node.box.halfExtents.clone());
-  var geometry = new CubeGeometry(diag[0] * 2.0, diag[1] * 2.0, diag[2] * 2.0);
-  //var geometry = new CubeGeometry(node.box.halfExtents[0] * 2.0, node.box.halfExtents[1] * 2.0, node.box.halfExtents[2] * 2.0);
-  var material = new MeshBasicMaterial(color: 0x00ff00,
-  wireframe: true,
-  blending: NormalBlending,
-  side: DoubleSide,
-  shading: FlatShading,
-  polygonOffset: true,
-  polygonOffsetFactor: 1,
-  polygonOffsetUnits: 1,
-  overdraw: true,
-  fog: false);
-
-  var obj = new Mesh(geometry, material);
-  obj.position = node.box.center;
-  obj.matrix.setRotation(rot_mat);
-  /*
-  obj.matrix.rotate(node.box.axis0, node.box.halfExtents[0]);
-  obj.matrix.rotate(node.box.axis1, node.box.halfExtents[1]);
-  obj.matrix.rotate(node.box.axis2, node.box.halfExtents[2]);
-  */
-  obj.updateMatrix();
-  scene.add(obj);
-
-
-  drawObbTreeNode(node.left);
-  drawObbTreeNode(node.right);
+  return mesh;
 }
