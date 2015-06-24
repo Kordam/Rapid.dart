@@ -35,9 +35,9 @@ bool Plane_separateTris(Plane p, List<Vector3> points, List<int> tris,
     var n_left = 0;
 
     //Compute distance to plane
-    double d0 = p.distanceToVector3(point[0]);
-    double d1 = p.distanceToVector3(point[1]);
-    double d2 = p.distanceToVector3(point[2]);
+    double d0 = NEAR_ZERO(p.distanceToVector3(point[0]));
+    double d1 = NEAR_ZERO(p.distanceToVector3(point[1]));
+    double d2 = NEAR_ZERO(p.distanceToVector3(point[2]));
     //Count nb points on the left side of the plane
     d0 >= 0.0 ? n_left += 1 : n_left += 0;
     d1 >= 0.0 ? n_left += 1 : n_left += 0;

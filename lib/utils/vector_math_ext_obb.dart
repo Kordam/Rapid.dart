@@ -40,7 +40,10 @@ Plane Obb3_splitPlane(Obb3 box, Vector3 point)
   }
 
   axis.normalize();
-  var d = - (axis[0] * point[0] + axis[1] * point[1] + axis[2] * point[2]);
+  axis.x = NEAR_ZERO(axis.x);
+  axis.y = NEAR_ZERO(axis.y);
+  axis.z = NEAR_ZERO(axis.z);
+  var d = NEAR_ZERO( - (axis[0] * point[0] + axis[1] * point[1] + axis[2] * point[2]) );
   var p = new Plane.normalconstant(axis, d);
   return p;
 }

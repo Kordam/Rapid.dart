@@ -6,8 +6,11 @@ Plane Triangle_toPlane(Triangle that)
   var v1 = that.point1 - that.point0;
   var v2 = that.point2 - that.point0;
   var normal = v1.cross(v2);
+  normal.x = NEAR_ZERO(normal.x);
+  normal.y = NEAR_ZERO(normal.y);
+  normal.z = NEAR_ZERO(normal.z);
   normal *= 1.0 / sqrt(normal.x * normal.x + normal.y * normal.y + normal.z * normal.z);
-  var d = - (normal[0] * that.point0[0] + normal[1] * that.point0[1] + normal[2] * that.point0[2]);
+  var d = NEAR_ZERO( - (normal[0] * that.point0[0] + normal[1] * that.point0[1] + normal[2] * that.point0[2]) );
   return new Plane.normalconstant(normal, d);
 }
 
