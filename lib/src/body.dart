@@ -15,7 +15,7 @@ class Body
 
   //Rotate a body by the givens euler [angles] in degree
   void rotate(Vector3 angles) {
-    _bounds.rotate(angles[0], angles[1], angles[2]);
+    _bounds.rotate(angles);
   }
 
   get pos => _bounds.center;
