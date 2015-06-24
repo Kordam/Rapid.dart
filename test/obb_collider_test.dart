@@ -87,7 +87,11 @@ void testCollideSameCube() {
 
   ObbCollider c1 = new ObbCollider.fromTriangles(tris, points);
   ObbCollider c2 = new ObbCollider.fromTriangles(tris, points);
-  expect(c1.collideWith(c2), equals(true));
+  var collide_tris = new List();
+  var collide_points = new List();
+  expect(c1.collideWithObb(c2, idx: collide_tris, points: collide_points), equals(true));
+  print("Collision tris : ${collide_tris}}");
+  print("Collision points: ${collide_points}");
 }
 
 void testNoCollideCubeX()
@@ -117,7 +121,7 @@ void testNoCollideCubeX()
   ObbCollider c1 = new ObbCollider.fromTriangles(tris, points);
   ObbCollider c2 = new ObbCollider.fromTriangles(tris, points);
   //Translate method should be available
-  //c2.translate(new Vector3(10.1, 0.0, 0.0));
+  c2.translate(new Vector3(20.1, 0.0, 0.0));
   expect(c1.collideWith(c2), equals(false));
 }
 
@@ -147,8 +151,7 @@ void testCollideCubeX()
 
   ObbCollider c1 = new ObbCollider.fromTriangles(tris, points);
   ObbCollider c2 = new ObbCollider.fromTriangles(tris, points);
-  //Translate method should be available
-  //c2.translate(new Vector3(5.0, 0.0, 0.0));
+  c2.translate(new Vector3(5.0, 0.0, 0.0));
   expect(c1.collideWith(c2), equals(true));
 }
 
@@ -178,8 +181,7 @@ void testNoCollideCubeY()
 
   ObbCollider c1 = new ObbCollider.fromTriangles(tris, points);
   ObbCollider c2 = new ObbCollider.fromTriangles(tris, points);
-  //Translate method should be available
-  //c2.translate(new Vector3(0.5, 10.1, 0.0));
+  c2.translate(new Vector3(0.5, 20.1, 0.0));
   expect(c1.collideWith(c2), equals(false));
 }
 
