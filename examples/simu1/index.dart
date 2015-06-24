@@ -38,9 +38,9 @@ void main() {
       });
     }
 
-    for (int i = 0; i < 149; i++) {
-      RigidBody body = new RigidBody.fromTriangles(tris, points);
+    for (int i = 0; i < 12; i++) {
       Mesh m = createMesh(points, tris);
+      RigidBody body = new RigidBody.fromTriangles(points, tris);
       scene.add(m);
     }
     animate(0);

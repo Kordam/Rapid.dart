@@ -18,7 +18,7 @@ class RigidBody
   //linked [vertices]
   //TODO add Collider choice
   RigidBody.fromTriangles(List<Vector3> vertices, List<int> faces) {
-    _vertices == vertices;
+    _vertices = vertices;
     _faces = faces;
     _bounds = new ObbCollider.fromTriangles(_faces, _vertices);
   }
