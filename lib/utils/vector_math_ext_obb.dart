@@ -1,7 +1,5 @@
 part of rapid;
 
-const double EPSILON = 1e-5;
-
 //Sort the axis of an [obb] by size
 List<Vector3> Obb3_sortAxis(Obb3 obb)
 {
