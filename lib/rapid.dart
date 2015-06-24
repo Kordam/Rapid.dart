@@ -24,6 +24,7 @@ part 'src/obb_tree.dart';
 
 part 'src/exception.dart';
 
+part 'utils/vector_math_ext_constant.dart';
 part 'utils/vector_math_ext_obb.dart';
 part 'utils/vector_math_ext_matrix3.dart';
 part 'utils/vector_math_ext_plane.dart';
