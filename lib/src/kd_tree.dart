@@ -7,7 +7,7 @@ const int DIMENSIONS = 3;
 
 // Defines a KDTree for spacial subdivision
 class KdNodeData<T> {
-  Vector4 vec;
+  Vector3 vec;
   T tag;
 
   KdNodeData(this.vec, this.tag);
@@ -54,7 +54,7 @@ class KdTree<T> {
     return node;
   }
 
-  KdTree.fromList(List<Vector4> points, List<T> tags) {
+  KdTree.fromList(List<Vector3> points, List<T> tags) {
     List<KdNodeData<T>> interweaved = new List<KdNodeData<T>>();
     for (int i = 0; i < points.length; ++i) {
       T tag;
@@ -68,7 +68,7 @@ class KdTree<T> {
     root = buildTree(interweaved, 0, null);
   }
 
-  bool insert(Vector4 point, T tag, {bool overwrite: false}) {
+  bool insert(Vector3 point, T tag, {bool overwrite: false}) {
     KdNodeData<T> existing = exact(point);
     if (existing != null) {
       print ('multiple occurrence found');
@@ -111,7 +111,7 @@ class KdTree<T> {
     return true;
   }
 
-  void remove(Vector4 point) {
+  void remove(Vector3 point) {
     KdNode<T> nodeSearch(KdNode<T> node) {
       if (node == null)
         return null;
@@ -207,7 +207,7 @@ class KdTree<T> {
     removeNode(node);
   }
 
-  KdNodeData<T> exact(Vector4 point) {
+  KdNodeData<T> exact(Vector3 point) {
     KdNodeData<T> result = nearest(point);
 
     if (result == null)
@@ -219,7 +219,7 @@ class KdTree<T> {
       return null;
   }
 
-  KdNodeData<T> nearest(Vector4 point) {
+  KdNodeData<T> nearest(Vector3 point) {
     if (root == null)
       return null;
 
@@ -255,14 +255,14 @@ class KdTree<T> {
     return min.data;
   }
 
-  List<KdNodeData<T>> nearestMultiple(Vector4 point, int maxNodes) {
+  List<KdNodeData<T>> nearestMultiple(Vector3 point, int maxNodes) {
     BinaryHeap<BestMatch<T>> bestNodes = new BinaryHeap<BestMatch<T>>((BestMatch i) => -i.distance);
 
     void nearestSearch(KdNode<T> node) {
       KdNode<T> bestChild, otherChild;
       int dimension = node.dimension;
       num ownDistance = point.distanceTo(node.data.vec);
-      Vector4 linearPoint = new Vector4.zero();
+      Vector3 linearPoint = new Vector3.zero();
       num linearDistance;
 
       void saveNode(KdNode<T> item, num distance) {
