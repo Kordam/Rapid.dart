@@ -9,8 +9,13 @@ Special thanks to Stefan Gottschalk for his thesis on Collison Queries.
 
 
 ## Features
+ - World class, as a container
+ - Body to abstract colling geometry
  - KdTree for spacial subdivision
  - ObbTree provides a tight fit of a 3D object
+ - ObbCollider represent a collision area, using Obbtree
+
+## Missing features
 
 ## Getting started
 
