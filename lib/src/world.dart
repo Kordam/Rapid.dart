@@ -22,11 +22,11 @@ class World
   void addObject(Body obj) {
     //Insert in space
     _space.insert(obj.pos, obj);
-    //Compute incoming collisions with objects
-     //Find nearest OBJs
-     //Test nearest OBJs
-     //Register collisions in nearest OBJS
-     //Registers collisions with nearest OBJs
+    //Compute incoming collisions with objects // O(??)
+     //Find nearest OBJs //O(n log(n))
+     //Test nearest OBJs // O(n log(n))
+     //Register collisions in nearest OBJS O(1)
+     //Registers collisions with nearest OBJs O(1)
   }
 
   void removeObject(Body obj) {
