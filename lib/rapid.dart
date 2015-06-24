@@ -13,7 +13,7 @@ import 'dart:async';
 
 import 'package:vector_math/vector_math.dart';
 
-part 'src/body.dart';
+part 'src/rigid_body.dart';
 part 'src/constraint.dart';
 part 'src/world.dart';
 part 'src/kd_tree.dart';

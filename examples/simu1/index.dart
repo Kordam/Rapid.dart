@@ -19,7 +19,7 @@ void main() {
     //Getting points & tris from obj
     var points = new List<Vector3>();
     var tris = new List<int>();
-    
+
     if (obj.geometry != null) {
       points.addAll(obj.geometry.vertices);
       obj.geometry.faces.forEach((Face f) {
@@ -38,10 +38,11 @@ void main() {
       });
     }
 
-    ObbCollider collider = new ObbCollider.fromTriangles(tris, points, split: 5);
-    Mesh m = createMesh(points, tris);
-    scene.add(m);
-
+    for (int i = 0; i < 149; i++) {
+      RigidBody body = new RigidBody.fromTriangles(tris, points);
+      Mesh m = createMesh(points, tris);
+      scene.add(m);
+    }
     animate(0);
   });
 }
