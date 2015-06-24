@@ -58,7 +58,8 @@ class World
         //Clear old collisions
         //Find nearest OBJS
         //Test nearest OBJs
-        // Register collisions in nearest OBJ
+        // Register collisions
+        // in nearest OBJ
         // Register collisions in current OBJ
     //Add obj in space
 
