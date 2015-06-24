@@ -1,34 +1,34 @@
 part of rapid;
 
-//Define a rigid body container class
-class Body
+//Define a RigidBody container class
+class RigidBody
 {
   var           _local_timer = 0.0;
   List<Vector3> _vertices;
   List<int>     _faces;
   Collider      _bounds;
 
-  Body.empty() {
+  RigidBody.empty() {
     _vertices = new List<Vector3>();
     _faces = new List<int>();
     _bounds = null;
   }
 
-  //Creates a body from a list of [faces] and
+  //Creates a RigidBody from a list of [faces] and
   //linked [vertices]
   //TODO add Collider choice
-  Body.fromTriangles(List<Vector3> vertices, List<int> faces) {
+  RigidBody.fromTriangles(List<Vector3> vertices, List<int> faces) {
     _vertices == vertices;
     _faces = faces;
     _bounds = new ObbCollider.fromTriangles(_faces, _vertices);
   }
 
-  //Moves a body of [delta] in model space
+  //Moves a RigidBody of [delta] in model space
   void translate(Vector3 delta) {
     _bounds.translate(delta);
   }
 
-  //Rotate a body by the givens euler [angles] in degree
+  //Rotate a RigidBody by the givens euler [angles] in degree
   void rotate(Vector3 angles) {
     _bounds.rotate(angles);
   }
