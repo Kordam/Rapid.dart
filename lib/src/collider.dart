@@ -32,14 +32,15 @@ abstract class Collider
 
   //Check if two colliders are in contact
   //by calling the appropriate collision test method
-  bool collideWith(Collider oth) {
+  //If so, Lists of colliding [points] and faces [idx] can be filled
+  bool collideWith(Collider oth, {List<int> idx: null, List<Vector3> points: null}) {
     switch (oth._type) {
       case ColliderType.OBB:
-        return collideWithObb(oth);
+        return collideWithObb(oth, idx: idx, points: points);
       case ColliderType.ABB:
-        return collideWithAbb(oth);
+        return collideWithAbb(oth, idx: idx, points: points);
       case ColliderType.SPHERE:
-        return collideWithSphere(oth);
+        return collideWithSphere(oth, idx: idx, points: points);
     }
     return false;
   }
