@@ -19,8 +19,9 @@ class ObbCollider extends Collider
     _tree.translate(vec);
   }
 
-  void rotate(double x, double y, double z) {
-    _tree.rotate(x, y, z);
+  //Rotate by the given euleur [angles]
+  void rotate(Vector3 angles) {
+    _tree.rotate(angles);
   }
 
   //Getters and setters
