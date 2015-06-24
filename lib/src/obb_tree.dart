@@ -77,12 +77,12 @@ class ObbTree
   }
 
   //Update rotation caching
-  // from euler angles
-  void rotate(double x, double y, double z) {
+  //from euler [angles] in degree
+  void rotate(Vector3 angles) {
     Matrix3 mat = new Matrix3.zero();
-    mat.setRotationX(x);
-    mat.setRotationY(y);
-    mat.setRotationZ(z);
+    mat.setRotationX(TO_RADIAN(angles[0]));
+    mat.setRotationY(TO_RADIAN(angles[1]));
+    mat.setRotationZ(TO_RADIAN(angles[2]));
     _rotate(mat, _root);
   }
 

@@ -21,8 +21,9 @@ abstract class Collider
   //Translate this collider by [vec]
   void   translate(Vector3 vec);
 
-  //Rotate from euler angles
-  void   rotate(double x, double y, double z);
+
+  //Rotate a body by the givens euler [angles] in degree
+  void   rotate(Vector3 angles);
 
   //Collision interface to define in inherited class
   bool collideWithObb(ObbCollider oth, {List<int> idx: null, List<Vector3> points: null});
