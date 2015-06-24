@@ -98,7 +98,7 @@ void testTranslationCube() {
   var tree = new ObbTree.fromTriangles(tris, points, 2);
 
   tree.translate(new Vector3(1.0, 0.0, 0.0));
-  print(tree.rootBox.center);
+  expect(tree.rootBox.center.x, 6.0);
 }
 
 void testRotationCube() {
@@ -127,7 +127,6 @@ void testRotationCube() {
   var tree = new ObbTree.fromTriangles(tris, points, 2);
 
   tree.rotate(new Vector3(90.0, 0.0, 0.0));
-  print(tree.rootBox.center);
 }
 
 
